@@ -1,0 +1,235 @@
+@use "../../../styles/tokens" as *;
+@use "../../../styles/mixins" as *;
+
+.section {
+  @include section-pad;
+  position: relative;
+}
+
+.eyebrow {
+  @include label;
+  display: flex;
+  gap: 0.75rem;
+  color: var(--text-2);
+  margin-bottom: 2rem;
+
+  span {
+    color: var(--volt);
+  }
+}
+
+.title {
+  @include display;
+  font-size: clamp(2.6rem, 10vw, 10.5rem);
+  line-height: 0.86;
+  margin-bottom: clamp(3rem, 7vw, 6rem);
+
+  > span {
+    display: block;
+  }
+
+  em {
+    font-style: normal;
+    color: var(--volt);
+  }
+}
+
+.indent {
+  @include up($bp-md) {
+    padding-left: 18%;
+    color: var(--text-3);
+  }
+}
+
+.body {
+  display: grid;
+  gap: 3rem;
+
+  @include up($bp-lg) {
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 5rem;
+    align-items: start;
+  }
+}
+
+.copy {
+  display: grid;
+  gap: 1.25rem;
+  color: var(--text-2);
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  max-width: 34ch;
+
+  @include up($bp-lg) {
+    position: sticky;
+    top: calc(var(--nav-h) + 2rem);
+  }
+
+  p:first-child {
+    color: var(--text);
+  }
+}
+
+// ---------- Board ----------
+.board {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--bg-2);
+  overflow: hidden;
+}
+
+.meter {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--surface), var(--bg-2));
+}
+
+.meterHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+
+  > span {
+    @include label;
+    color: var(--text-2);
+  }
+}
+
+.meterValue {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--red);
+  transition: color 0.4s;
+}
+
+.calm {
+  color: var(--volt);
+}
+
+.meterTrack {
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  gap: 3px;
+  margin: 0.75rem 0 1rem;
+
+  span {
+    height: 18px;
+    border-radius: 2px;
+    background: var(--surface-3);
+    transition: background-color 0.35s var(--ease-out);
+  }
+
+  .on {
+    background: var(--red);
+  }
+}
+
+.meterFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--text-3);
+}
+
+.solveAll {
+  min-height: 40px;
+  padding: 0 0.9rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(199, 255, 69, 0.4);
+  color: var(--volt);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  transition: background-color 0.3s, color 0.3s;
+
+  @include hover {
+    background: var(--volt);
+    color: var(--bg);
+  }
+}
+
+.list li + li {
+  border-top: 1px solid var(--line);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 2rem 1fr 36px;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1.1rem 1.5rem;
+  text-align: left;
+  transition: background-color 0.3s;
+
+  @include hover {
+    background: rgba(255, 255, 255, 0.025);
+
+    .rowIcon {
+      border-color: var(--text-3);
+    }
+  }
+
+  &:focus-visible {
+    outline-offset: -3px;
+  }
+}
+
+.rowIdx {
+  @include label;
+  color: var(--text-3);
+}
+
+.rowText {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.pain {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  transition: color 0.3s;
+}
+
+.detail {
+  font-size: 0.875rem;
+  color: var(--text-3);
+}
+
+.rowIcon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line-2);
+  color: var(--red);
+  transition: all 0.35s var(--ease-out);
+}
+
+.solved {
+  .pain {
+    color: var(--text-2);
+  }
+
+  .detail {
+    color: var(--sage);
+  }
+
+  .rowIdx {
+    color: var(--volt);
+  }
+
+  .rowIcon {
+    background: var(--volt);
+    border-color: var(--volt);
+    color: var(--bg);
+  }
+}

@@ -1,0 +1,160 @@
+@use "../../../styles/tokens" as *;
+@use "../../../styles/mixins" as *;
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+  background: rgba(4, 5, 5, 0.78);
+  backdrop-filter: blur(6px);
+  overflow-y: auto;
+}
+
+.panel {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--surface-2), var(--surface));
+  border: 1px solid var(--line-2);
+  box-shadow: 0 40px 120px -20px rgba(0, 0, 0, 0.9);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 20% auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--volt), transparent);
+  }
+}
+
+.close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  color: var(--text-2);
+
+  @include hover {
+    background: var(--surface-3);
+    color: var(--text);
+  }
+}
+
+.eyebrow {
+  @include label;
+  color: var(--volt);
+  margin-bottom: 0.75rem;
+}
+
+.title {
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  letter-spacing: -0.03em;
+  margin-bottom: 1.75rem;
+  padding-right: 2rem;
+}
+
+.form {
+  display: grid;
+  gap: 1rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.4rem;
+
+  label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-2);
+  }
+
+  input,
+  select {
+    height: 48px;
+    padding: 0 0.9rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--line-2);
+    background: var(--bg-2);
+    font-size: 1rem;
+    transition: border-color 0.2s;
+
+    &:focus-visible {
+      outline: none;
+      border-color: var(--volt);
+      box-shadow: 0 0 0 3px var(--volt-dim);
+    }
+
+    &[aria-invalid="true"] {
+      border-color: var(--red);
+    }
+  }
+}
+
+.error {
+  font-size: 0.8125rem;
+  color: var(--red);
+}
+
+.submit {
+  height: 52px;
+  margin-top: 0.5rem;
+  border-radius: var(--radius-sm);
+  background: var(--volt);
+  color: #0a0d05;
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.3s;
+
+  @include hover {
+    box-shadow: 0 10px 40px -10px var(--volt-glow);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.note {
+  font-size: 0.75rem;
+  color: var(--text-3);
+  text-align: center;
+}
+
+.success {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  text-align: center;
+  padding-block: 1rem;
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  p {
+    color: var(--text-2);
+    max-width: 38ch;
+  }
+
+  .submit {
+    width: 100%;
+  }
+}
+
+.tick {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--volt);
+  color: var(--bg);
+}

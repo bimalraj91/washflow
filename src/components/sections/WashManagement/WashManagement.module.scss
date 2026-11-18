@@ -1,0 +1,302 @@
+@use "../../../styles/tokens" as *;
+@use "../../../styles/mixins" as *;
+
+.section {
+  @include section-pad;
+  position: relative;
+}
+
+.featureList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 1.25rem;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+
+  li {
+    display: flex;
+    gap: 0.5rem;
+    color: var(--text);
+
+    &::before {
+      content: "";
+      flex: none;
+      width: 6px;
+      height: 6px;
+      margin-top: 0.55em;
+      background: var(--volt);
+      transform: rotate(45deg);
+    }
+  }
+}
+
+.flow {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+
+  @include up($bp-lg) {
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 4rem;
+    min-height: calc(100vh - 120px);
+  }
+}
+
+.steps {
+  display: grid;
+  gap: 0.25rem;
+  counter-reset: step;
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.85rem 0.75rem;
+  border-radius: var(--radius);
+  text-align: left;
+  transition: background-color 0.4s var(--ease-out);
+
+  @include hover {
+    background: rgba(255, 255, 255, 0.02);
+  }
+}
+
+.stepIcon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line-2);
+  color: var(--text-3);
+  transition: all 0.4s var(--ease-out);
+}
+
+// Connector line between steps
+li:not(:last-child) .stepIcon::after {
+  content: "";
+  position: absolute;
+  top: calc(100% + 1px);
+  left: 50%;
+  width: 1px;
+  height: calc(0.85rem * 2 + 0.25rem + 4px);
+  background: var(--line-2);
+}
+
+.stepText {
+  display: grid;
+  gap: 0.2rem;
+  padding-top: 0.45rem;
+}
+
+.stepTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--text-3);
+  transition: color 0.4s;
+}
+
+.stepNum {
+  @include label;
+  margin-right: 0.35rem;
+}
+
+.stepNote {
+  display: grid;
+  grid-template-rows: 0fr;
+  font-size: 0.875rem;
+  color: var(--text-2);
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.5s var(--ease-out),
+    opacity 0.4s;
+}
+
+.stepDone {
+  .stepIcon {
+    border-color: rgba(199, 255, 69, 0.4);
+    color: var(--volt);
+  }
+
+  .stepTitle {
+    color: var(--text-2);
+  }
+}
+
+.stepActive {
+  background: var(--surface);
+
+  .stepIcon {
+    background: var(--volt);
+    border-color: var(--volt);
+    color: var(--bg);
+    box-shadow: 0 0 24px var(--volt-glow);
+  }
+
+  .stepTitle {
+    color: var(--text);
+  }
+
+  .stepNote {
+    max-height: 3em;
+    opacity: 1;
+  }
+}
+
+// ---------- Job card ----------
+.jobCard {
+  position: relative;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(170deg, var(--surface-2), var(--surface) 60%);
+  border: 1px solid var(--line-2);
+  box-shadow: 0 40px 100px -40px rgba(0, 0, 0, 0.9);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px 25% auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--volt), transparent);
+  }
+}
+
+.jobHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.jobId {
+  @include label;
+  color: var(--text-3);
+}
+
+.vehicle {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.plate {
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  background: var(--text);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.model {
+  margin-top: 0.5rem;
+  color: var(--text-2);
+  font-size: 0.875rem;
+}
+
+.chips {
+  display: flex;
+  gap: 0.4rem;
+  align-items: flex-start;
+}
+
+.track {
+  position: relative;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--surface-3);
+  margin: 0 6px;
+}
+
+.trackFill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--volt);
+  box-shadow: 0 0 14px var(--volt-glow);
+  transform-origin: left;
+  transition: transform 0.7s var(--ease-out);
+}
+
+.dot {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 50%;
+  background: var(--surface-3);
+  border: 2px solid var(--surface);
+  transition: background-color 0.4s;
+}
+
+.dotOn {
+  background: var(--volt);
+}
+
+.trackMeta {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.75rem 0 1.75rem;
+  font-size: 0.8125rem;
+  color: var(--text-2);
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--line);
+  margin-bottom: 1.25rem;
+
+  @include up($bp-md) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  > div {
+    padding: 0.85rem 1rem;
+    background: var(--bg-2);
+  }
+
+  dt {
+    font-size: 0.6875rem;
+    color: var(--text-3);
+  }
+
+  dd {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+}
+
+.log {
+  position: relative;
+  min-height: 2.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  background: rgba(0, 0, 0, 0.3);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-2);
+  overflow: hidden;
+}
+
+.logTime {
+  color: var(--volt);
+  margin-right: 0.5rem;
+}

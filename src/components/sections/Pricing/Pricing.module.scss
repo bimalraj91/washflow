@@ -1,0 +1,377 @@
+@use "../../../styles/tokens" as *;
+@use "../../../styles/mixins" as *;
+
+.section {
+  @include section-pad;
+  position: relative;
+  background:
+    radial-gradient(50% 40% at 50% 45%, rgba(199, 255, 69, 0.06), transparent 70%),
+    var(--bg);
+  border-top: 1px solid var(--line);
+}
+
+.head {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+
+  @include up($bp-lg) {
+    grid-template-columns: 1.4fr 1fr;
+    align-items: end;
+  }
+}
+
+.eyebrow {
+  @include label;
+  display: flex;
+  gap: 0.75rem;
+  color: var(--text-2);
+  margin-bottom: 1.25rem;
+
+  span {
+    color: var(--volt);
+  }
+}
+
+.title {
+  @include display;
+  font-size: clamp(2.6rem, 8vw, 7.5rem);
+
+  em {
+    font-style: normal;
+    color: var(--volt);
+  }
+}
+
+.intro {
+  max-width: 42ch;
+  color: var(--text-2);
+}
+
+// ---------- Billing cycle ----------
+.cycle {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  margin-bottom: 2rem;
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.cycleBtn {
+  position: relative;
+  min-height: 44px;
+  padding: 0 1.1rem;
+  border-radius: 9px;
+  color: var(--text-2);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.cycleOn {
+  color: var(--bg);
+}
+
+.cycleBg {
+  position: absolute;
+  inset: 0;
+  border-radius: 9px;
+  background: var(--text);
+}
+
+.cycleLabel {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.save {
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  background: var(--volt);
+  color: #0a0d05;
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+// ---------- Plans ----------
+.plans {
+  display: grid;
+  gap: 1rem;
+  align-items: stretch;
+
+  @include up($bp-lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--bg-2);
+  }
+}
+
+.plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border-radius: var(--radius-lg);
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+
+  // Desktop: one continuous spec sheet split by hairlines
+  @include up($bp-lg) {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+
+    & + & {
+      border-left: 1px solid var(--line);
+    }
+  }
+}
+
+.featured {
+  background: linear-gradient(180deg, rgba(199, 255, 69, 0.08), var(--surface) 40%);
+  border-color: rgba(199, 255, 69, 0.45);
+
+  @include up($bp-lg) {
+    margin: -1.25rem 0;
+    padding-top: calc(clamp(1.5rem, 3vw, 2.25rem) + 1.25rem);
+    padding-bottom: calc(clamp(1.5rem, 3vw, 2.25rem) + 1.25rem);
+    border: 1px solid rgba(199, 255, 69, 0.5) !important;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, rgba(199, 255, 69, 0.09), var(--surface) 45%);
+    box-shadow: 0 40px 90px -40px rgba(199, 255, 69, 0.25);
+    z-index: 1;
+  }
+
+  .planIdx {
+    color: var(--volt);
+  }
+}
+
+.flag {
+  @include label;
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 4px;
+  background: var(--volt);
+  color: #0a0d05;
+  font-weight: 700;
+
+  @include up($bp-lg) {
+    top: 1.75rem;
+  }
+}
+
+.planTop {
+  margin-bottom: 1.75rem;
+}
+
+.planIdx {
+  @include label;
+  color: var(--text-3);
+}
+
+.planName {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  letter-spacing: -0.03em;
+  margin: 0.5rem 0 0.4rem;
+  text-transform: uppercase;
+}
+
+.tagline {
+  color: var(--text-2);
+  font-size: 0.9375rem;
+  max-width: 30ch;
+}
+
+.price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  overflow: hidden;
+}
+
+.amount {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 4.5vw, 3.6rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.per {
+  color: var(--text-3);
+  font-size: 0.9375rem;
+}
+
+.billed {
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
+  color: var(--text-3);
+}
+
+.scale {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 1.5rem 0;
+  padding: 1.25rem 0;
+  border-block: 1px solid var(--line);
+
+  li {
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--line-2);
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text);
+  }
+}
+
+.features {
+  display: grid;
+  gap: 0.7rem;
+  margin-bottom: 2rem;
+
+  li {
+    display: flex;
+    gap: 0.6rem;
+    font-size: 0.9375rem;
+    color: var(--text-2);
+
+    svg {
+      flex: none;
+      margin-top: 0.2em;
+      color: var(--volt);
+    }
+  }
+
+  li:first-child {
+    color: var(--text);
+  }
+}
+
+.planCta {
+  margin-top: auto;
+  width: 100%;
+}
+
+// Button wraps itself when magnetic; make sure the link fills the column.
+.plan > a {
+  margin-top: auto;
+}
+
+// ---------- Comparison ----------
+.compare {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  border-top: 1px solid var(--line);
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 64px;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &:focus-visible {
+      outline-offset: 2px;
+    }
+  }
+
+  &[open] .chev {
+    transform: rotate(-135deg);
+  }
+}
+
+.chev {
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+  border-right: 2px solid var(--volt);
+  border-bottom: 2px solid var(--volt);
+  transform: rotate(45deg);
+  transition: transform 0.35s var(--ease-out);
+}
+
+.tableWrap {
+  position: relative;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+.table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+
+  th,
+  td {
+    padding: 0.85rem 0.75rem;
+    border-bottom: 1px solid var(--line);
+    text-align: center;
+  }
+
+  thead th {
+    @include label;
+    color: var(--text-2);
+
+    &:nth-child(3) {
+      color: var(--volt);
+    }
+  }
+
+  th[scope="row"],
+  thead th:first-child {
+    text-align: left;
+    padding-left: 0;
+  }
+
+  th[scope="row"] {
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  td {
+    color: var(--text-2);
+
+    svg {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+  td:nth-child(3) {
+    background: rgba(199, 255, 69, 0.03);
+  }
+}
+
+.yes {
+  color: var(--volt);
+}
+
+.no {
+  color: var(--text-3);
+}
+
+.fine {
+  margin-top: 1.5rem;
+  font-size: 0.8125rem;
+  color: var(--text-3);
+}

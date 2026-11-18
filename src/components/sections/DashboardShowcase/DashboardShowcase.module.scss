@@ -1,0 +1,51 @@
+@use "../../../styles/tokens" as *;
+@use "../../../styles/mixins" as *;
+
+.section {
+  @include section-pad;
+  position: relative;
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.glow {
+  position: absolute;
+  left: 50%;
+  top: 38%;
+  width: 80%;
+  height: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(50% 50% at 50% 50%, rgba(199, 255, 69, 0.08), transparent 70%);
+  pointer-events: none;
+}
+
+.points {
+  display: grid;
+  gap: 2rem;
+  margin-top: clamp(3rem, 6vw, 5rem);
+
+  @include up($bp-md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  li {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line-2);
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    margin: 0.75rem 0 0.5rem;
+  }
+
+  p {
+    color: var(--text-2);
+    max-width: 34ch;
+  }
+}
+
+.k {
+  @include label;
+  color: var(--volt);
+}

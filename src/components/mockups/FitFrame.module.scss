@@ -1,0 +1,36 @@
+.persp {
+  perspective: 1600px;
+  perspective-origin: 50% 0%;
+}
+
+.outer {
+  position: relative;
+  overflow: hidden;
+  transform-origin: 50% 0%;
+  border-radius: var(--radius-lg);
+
+  &[data-scroll] {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--surface-3) transparent;
+  }
+}
+
+.sizer {
+  overflow: hidden;
+}
+
+.inner {
+  transform-origin: 0 0;
+}
+
+.hint {
+  margin-top: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  text-align: center;
+}

@@ -1,0 +1,462 @@
+@use "../../../styles/tokens" as *;
+@use "../../../styles/mixins" as *;
+
+.section {
+  @include section-pad;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-2);
+  border-block: 1px solid var(--line);
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(40% 40% at 50% 70%, rgba(199, 255, 69, 0.1), transparent 70%),
+    repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 120px);
+  mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.head {
+  position: relative;
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  margin-bottom: clamp(3rem, 7vw, 5rem);
+}
+
+.eyebrow {
+  @include label;
+  display: flex;
+  gap: 0.75rem;
+  color: var(--text-2);
+  margin-bottom: 1.25rem;
+
+  span {
+    color: var(--volt);
+  }
+}
+
+.title {
+  @include display;
+  font-size: clamp(2.4rem, 7.5vw, 7rem);
+  max-width: 14ch;
+
+  em {
+    font-style: normal;
+    color: var(--volt);
+  }
+}
+
+.intro {
+  max-width: 50ch;
+  margin-top: 1.5rem;
+  color: var(--text-2);
+}
+
+.notice {
+  @include label;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px dashed var(--line-2);
+  border-radius: var(--radius-xs);
+  color: var(--text-2);
+}
+
+// ---------- Stage ----------
+.stage {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(78vw, 290px);
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0 calc(50vw - min(39vw, 145px)) 1rem;
+  margin-inline: calc(var(--gutter) * -1);
+  scrollbar-width: none;
+  transform-style: preserve-3d;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include up($bp-lg) {
+    grid-auto-columns: auto;
+    grid-template-columns: repeat(3, minmax(0, 300px));
+    justify-content: center;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    overflow: visible;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.phoneSlot {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  scroll-snap-align: center;
+  transform-style: preserve-3d;
+  will-change: transform;
+
+  @include up($bp-lg) {
+    &[data-phone="center"] {
+      z-index: 2;
+    }
+  }
+}
+
+.caption {
+  @include label;
+  color: var(--text-3);
+}
+
+// ---------- Screens ----------
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem 1rem;
+  font-size: 0.6875rem;
+  overflow: hidden;
+}
+
+.sTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  small {
+    display: block;
+    color: var(--text-3);
+    font-size: 0.625rem;
+  }
+
+  b {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+  }
+}
+
+.iconBtn {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: var(--text-2);
+}
+
+.hero {
+  position: relative;
+  padding: 0.85rem;
+  border-radius: 16px;
+  background: linear-gradient(150deg, rgba(199, 255, 69, 0.16), var(--surface) 60%);
+  border: 1px solid rgba(199, 255, 69, 0.25);
+
+  small {
+    display: block;
+    color: var(--text-2);
+  }
+
+  b {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: -0.03em;
+  }
+
+  span {
+    color: var(--volt);
+    font-weight: 600;
+  }
+
+  svg {
+    width: 100%;
+    height: 34px;
+    margin-top: 0.3rem;
+  }
+
+  path {
+    fill: none;
+    stroke: var(--volt);
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+
+  div {
+    padding: 0.6rem;
+    border-radius: 12px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+  }
+
+  small {
+    display: block;
+    color: var(--text-3);
+    font-size: 0.5625rem;
+  }
+
+  b {
+    font-size: 0.875rem;
+  }
+}
+
+.warn {
+  color: var(--amber);
+}
+
+.volt {
+  color: var(--volt);
+}
+
+.listLabel {
+  @include label;
+  font-size: 0.5625rem;
+  color: var(--text-3);
+}
+
+.list {
+  display: grid;
+  gap: 0.45rem;
+
+  li {
+    display: grid;
+    grid-template-columns: 22px 1fr auto;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.bay {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: var(--surface-2);
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+}
+
+.lm {
+  display: grid;
+  min-width: 0;
+
+  small {
+    color: var(--text-3);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+// Job
+.jobVisual {
+  display: grid;
+  justify-items: center;
+  padding: 0.75rem 0 0.25rem;
+}
+
+.ring {
+  position: relative;
+  width: 120px;
+  height: 120px;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+
+  span {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    text-align: center;
+  }
+
+  b {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+  }
+
+  small {
+    color: var(--text-3);
+  }
+}
+
+.ringBg,
+.ringFg {
+  fill: none;
+  stroke-width: 7;
+}
+
+.ringBg {
+  stroke: var(--surface-3);
+}
+
+.ringFg {
+  stroke: var(--volt);
+  stroke-linecap: round;
+  stroke-dasharray: 264;
+  stroke-dashoffset: 95;
+  filter: drop-shadow(0 0 6px var(--volt-glow));
+}
+
+.jPlate {
+  margin-top: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  background: var(--text);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+.jModel {
+  margin-top: 0.3rem;
+  color: var(--text-3);
+}
+
+.timeline {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 14px;
+  background: var(--surface);
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-3);
+
+    span {
+      display: grid;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid var(--line-2);
+    }
+
+    &[data-state="done"] {
+      color: var(--text-2);
+
+      span {
+        background: var(--sage);
+        border-color: var(--sage);
+        color: var(--bg);
+      }
+    }
+
+    &[data-state="now"] {
+      color: var(--text);
+      font-weight: 600;
+
+      span {
+        background: var(--volt);
+        border-color: var(--volt);
+        color: var(--bg);
+      }
+    }
+  }
+}
+
+// Invoice
+.invoice {
+  padding: 0.85rem;
+  border-radius: 16px;
+  background: var(--text);
+  color: var(--bg);
+}
+
+.iName {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.iSub {
+  font-size: 0.625rem;
+  opacity: 0.6;
+}
+
+.lines {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.75rem 0;
+  padding: 0.6rem 0;
+  border-block: 1px dashed rgba(0, 0, 0, 0.2);
+
+  li {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .warn {
+    color: #9a6a00;
+  }
+}
+
+.iTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  b {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+  }
+}
+
+.methods {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.35rem;
+
+  span {
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--line-2);
+    text-align: center;
+    color: var(--text-2);
+
+    &[data-on] {
+      border-color: var(--volt);
+      color: var(--volt);
+      background: var(--volt-dim);
+    }
+  }
+}
+
+.payBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-top: auto;
+  padding: 0.75rem;
+  border-radius: 12px;
+  background: var(--volt);
+  color: var(--bg);
+  font-weight: 700;
+}

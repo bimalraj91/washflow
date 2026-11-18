@@ -1,0 +1,202 @@
+@use "../styles/tokens" as *;
+@use "../styles/mixins" as *;
+
+:root {
+  // OBSIDIAN × VOLT
+  --bg: #080a0a;
+  --bg-2: #0e1211;
+  --surface: #141917;
+  --surface-2: #1a201e;
+  --surface-3: #212826;
+  --volt: #c7ff45;
+  --volt-dim: rgba(199, 255, 69, 0.12);
+  --volt-glow: rgba(199, 255, 69, 0.35);
+  --sage: #a8c77a;
+  --text: #f5f6f1;
+  --text-2: #a1aaa4;
+  // Nudged up from #707A74 so small muted text clears WCAG AA (4.5:1) on --bg.
+  --text-3: #7f8983;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-2: rgba(255, 255, 255, 0.14);
+
+  // Status (always paired with an icon or text label — never colour alone)
+  --amber: #f2c14e;
+  --red: #ff7a66;
+  --cyan: #7fd8e8;
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 22px;
+
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --nav-h: 72px;
+
+  --ease-out: #{$ease-out};
+  --ease-in-out: #{$ease-in-out};
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: var(--nav-h);
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+:focus-visible {
+  @include focus-ring;
+}
+
+::selection {
+  background: var(--volt);
+  color: var(--bg);
+}
+
+.container {
+  width: 100%;
+  max-width: calc(#{$container} + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.sr-only {
+  @include visually-hidden;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1000;
+  padding: 0.75rem 1rem;
+  background: var(--volt);
+  color: var(--bg);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  transform: translateY(-150%);
+  transition: transform 0.2s var(--ease-out);
+
+  &:focus-visible {
+    transform: none;
+  }
+}
+
+.volt {
+  color: var(--volt);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+// Lenis
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

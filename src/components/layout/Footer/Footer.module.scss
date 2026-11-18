@@ -1,0 +1,120 @@
+@use "../../../styles/tokens" as *;
+@use "../../../styles/mixins" as *;
+
+.footer {
+  position: relative;
+  padding-top: clamp(4rem, 8vw, 6rem);
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.top {
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: 1fr 1fr;
+
+  @include up($bp-md) {
+    grid-template-columns: 1.6fr repeat(3, 1fr);
+    gap: 3rem;
+  }
+}
+
+.brandCol {
+  grid-column: 1 / -1;
+  display: grid;
+  align-content: start;
+  gap: 1.25rem;
+
+  @include up($bp-md) {
+    grid-column: auto;
+  }
+}
+
+.blurb {
+  max-width: 34ch;
+  color: var(--text-2);
+  font-size: 0.9375rem;
+}
+
+.mail {
+  justify-self: start;
+  color: var(--volt);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.col ul {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.colTitle {
+  @include label;
+  margin-bottom: 1rem;
+  color: var(--text-3);
+  font-weight: 500;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  color: var(--text-2);
+  font-size: 0.9375rem;
+  transition: color 0.3s;
+
+  @include hover {
+    color: var(--text);
+  }
+}
+
+.wordmark {
+  margin: clamp(3rem, 8vw, 5rem) 0 -0.12em;
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 17.6vw, 17rem);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  text-align: center;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.09);
+  user-select: none;
+}
+
+.bottom {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  padding: 1.5rem 0 2rem;
+  border-top: 1px solid var(--line);
+  color: var(--text-3);
+  font-size: 0.8125rem;
+
+  a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.3s;
+
+    @include hover {
+      color: var(--text);
+    }
+  }
+}
+
+.legal,
+.socials {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.socials span {
+  cursor: default;
+}

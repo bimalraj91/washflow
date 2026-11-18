@@ -1,0 +1,444 @@
+@use "../../styles/mixins" as *;
+
+// A real-feeling product UI. Fixed desktop width; the frame scrolls on small screens.
+.app {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  width: 1180px;
+  min-height: 640px;
+  font-size: 0.75rem;
+  color: var(--text);
+  text-align: left;
+}
+
+.side {
+  padding: 1rem 0.75rem;
+  border-right: 1px solid var(--line);
+  background: #0b0e0d;
+}
+
+.org {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.25rem 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--line);
+
+  b {
+    display: block;
+    font-size: 0.8125rem;
+  }
+
+  small {
+    color: var(--text-3);
+    font-size: 0.6875rem;
+  }
+}
+
+.orgMark {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--volt);
+  color: var(--bg);
+  font-weight: 700;
+  font-size: 0.6875rem;
+}
+
+.nav {
+  display: grid;
+  gap: 2px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border-radius: 7px;
+  color: var(--text-2);
+  font-size: 0.75rem;
+  text-align: left;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+button.navItem {
+  @include hover {
+    background: var(--surface);
+    color: var(--text);
+  }
+}
+
+.navActive {
+  background: var(--surface-2);
+  color: var(--text);
+  box-shadow: inset 2px 0 0 var(--volt);
+
+  svg {
+    color: var(--volt);
+  }
+}
+
+.main {
+  padding: 1.1rem 1.25rem 1.25rem;
+  min-width: 0;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.crumb {
+  color: var(--text-3);
+  font-size: 0.6875rem;
+}
+
+.h {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.topRight {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.search {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 240px;
+  height: 32px;
+  padding: 0 0.75rem;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--text-3);
+}
+
+.bell {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  color: var(--text-2);
+}
+
+.tabs {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  margin-bottom: 1rem;
+  border-radius: 9px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.tab {
+  position: relative;
+  min-height: 30px;
+  padding: 0 0.9rem;
+  border-radius: 6px;
+  color: var(--text-2);
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  span {
+    position: relative;
+  }
+
+  &:focus-visible {
+    outline-offset: 0;
+  }
+}
+
+.tabActive {
+  color: var(--bg);
+}
+
+.tabBg {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: var(--volt);
+}
+
+.panelArea {
+  min-height: 470px;
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+
+.kpi {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.8rem 0.9rem;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.kpiAccent {
+  border-color: rgba(199, 255, 69, 0.28);
+  background: linear-gradient(160deg, rgba(199, 255, 69, 0.09), var(--surface) 60%);
+
+  .kValue {
+    color: var(--volt);
+  }
+}
+
+.kLabel {
+  color: var(--text-3);
+  font-size: 0.6875rem;
+}
+
+.kValue {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.kDelta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--sage);
+  font-size: 0.6875rem;
+}
+
+.kWarn {
+  color: var(--amber);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 0.6rem;
+}
+
+.card {
+  padding: 0.9rem;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  min-width: 0;
+}
+
+.chartCard {
+  grid-row: span 2;
+}
+
+.txCard {
+  grid-row: span 2;
+}
+
+.cardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.cardTitle {
+  @include label;
+  font-size: 0.5625rem;
+  color: var(--text-2);
+}
+
+.big {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  margin-top: 0.2rem;
+}
+
+.chart {
+  height: 240px;
+}
+
+.muted {
+  color: var(--text-3);
+}
+
+.warnText {
+  color: var(--amber);
+}
+
+.jobsMini,
+.staff {
+  display: grid;
+  gap: 0.55rem;
+
+  li {
+    display: grid;
+    grid-template-columns: 26px 1fr auto;
+    align-items: center;
+    gap: 0.6rem;
+  }
+}
+
+.bay {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: var(--surface-2);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  color: var(--text-2);
+}
+
+.jm {
+  display: grid;
+  min-width: 0;
+
+  b {
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  small {
+    color: var(--text-3);
+    font-size: 0.6875rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--surface-3);
+  font-size: 0.5625rem;
+  font-weight: 700;
+}
+
+.on {
+  color: var(--sage);
+  font-size: 0.6875rem;
+
+  &::before {
+    content: "● ";
+  }
+}
+
+.insights {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+
+  dt {
+    color: var(--text-3);
+    font-size: 0.6875rem;
+  }
+
+  dd {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+}
+
+// Tables
+.table {
+  display: grid;
+}
+
+.tr {
+  display: grid;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.th {
+  border-top: 0;
+  padding-top: 0;
+  color: var(--text-3);
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.txCols {
+  grid-template-columns: 1.4fr 1.4fr 0.6fr 0.7fr 0.8fr;
+}
+
+.txColsC {
+  grid-template-columns: 1.5fr 0.6fr 0.8fr 0.8fr;
+}
+
+.jobsCols {
+  grid-template-columns: 36px 1.3fr 1.3fr 0.6fr 1fr 0.8fr;
+}
+
+.method {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-2);
+}
+
+.amt {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.prog {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--surface-3);
+  overflow: hidden;
+
+  i {
+    display: block;
+    height: 100%;
+    background: var(--volt);
+  }
+}
+
+.filters {
+  display: flex;
+  gap: 4px;
+}
+
+.filter {
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  color: var(--text-2);
+  font-size: 0.6875rem;
+}
+
+.filterOn {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}

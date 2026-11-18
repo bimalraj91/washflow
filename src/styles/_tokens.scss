@@ -1,0 +1,13 @@
+// Sass-side tokens. Colours live as CSS custom properties in globals.scss so
+// they can be read at runtime (charts, canvas); breakpoints must be Sass.
+
+$bp-sm: 480px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
+$bp-2xl: 1600px;
+
+$container: 1360px;
+
+$ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+$ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);

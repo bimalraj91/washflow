@@ -1,0 +1,63 @@
+import { Button } from "@/components/ui/Button/Button";
+import { StatusChip } from "@/components/ui/StatusChip/StatusChip";
+import { DemoTag } from "@/components/mockups/Frames";
+import { formatINR } from "@/lib/utils";
+import { OVERVIEW } from "@/lib/mockData";
+import styles from "./CTA.module.scss";
+
+export function CTA() {
+  return (
+    <section id="book-demo" className={styles.section} aria-labelledby="cta-title">
+      <svg className={styles.lines} viewBox="0 0 1440 600" preserveAspectRatio="none" aria-hidden="true">
+        {Array.from({ length: 9 }, (_, i) => (
+          <path
+            key={i}
+            d={`M-100 ${520 - i * 46} C 400 ${470 - i * 40}, 900 ${560 - i * 52}, 1540 ${300 - i * 30}`}
+            style={{ animationDelay: `${i * -1.1}s` }}
+          />
+        ))}
+      </svg>
+
+      <div className={`container ${styles.inner}`}>
+        <p className={styles.eyebrow} data-reveal="fade">
+          <span className={styles.dot} /> Ready when you are
+        </p>
+        <h2 id="cta-title" className={styles.title}>
+          <span data-reveal>Less manual work.</span>
+          <span data-reveal>
+            More business <em>in motion.</em>
+          </span>
+        </h2>
+        <p className={styles.lead} data-reveal>
+          Bring every wash, customer, payment and operation together in one powerful system.
+        </p>
+        <div className={styles.ctas} data-reveal>
+          <Button href="/#book-demo" data-demo-trigger="" size="lg" arrow magnetic>
+            Book your demo
+          </Button>
+          <Button href="/#platform" variant="ghost" size="lg">
+            Explore the platform
+          </Button>
+        </div>
+
+        <div className={styles.fragment} aria-hidden="true">
+          <div className={styles.fCard}>
+            <span>Revenue today</span>
+            <b>{formatINR(OVERVIEW.revenue)}</b>
+            <DemoTag />
+          </div>
+          <div className={styles.fCard}>
+            <span>Washes</span>
+            <b>{OVERVIEW.washes}</b>
+            <StatusChip status="progress" label="3 live" />
+          </div>
+          <div className={styles.fCard}>
+            <span>Dues cleared</span>
+            <b>{formatINR(9850)}</b>
+            <StatusChip status="paid" />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

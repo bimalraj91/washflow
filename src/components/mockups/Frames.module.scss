@@ -1,0 +1,158 @@
+@use "../../styles/mixins" as *;
+
+.demoTag {
+  @include label;
+  font-size: 0.5625rem;
+  padding: 0.2rem 0.45rem;
+  border: 1px dashed rgba(199, 255, 69, 0.35);
+  border-radius: var(--radius-xs);
+  color: var(--sage);
+  white-space: nowrap;
+}
+
+.browser {
+  position: relative;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, #1c2321, #121715);
+  border: 1px solid var(--line-2);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 50px 120px -30px rgba(0, 0, 0, 0.9),
+    0 30px 60px -40px rgba(199, 255, 69, 0.15);
+  overflow: hidden;
+}
+
+.chrome {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 40px;
+  padding: 0 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+
+  i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--surface-3);
+  }
+}
+
+.url {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 1;
+  max-width: 340px;
+  height: 24px;
+  margin-inline: auto;
+  padding: 0 0.75rem;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.viewport {
+  background: var(--bg-2);
+}
+
+// Phone
+.phone {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 9 / 19.2;
+  margin: 0;
+  padding: 10px;
+  border-radius: 46px;
+  background: linear-gradient(145deg, #2a312e, #0c0f0e 45%, #1f2523);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+    0 0 0 2px #050606,
+    0 60px 100px -30px rgba(0, 0, 0, 0.95);
+}
+
+.screen {
+  position: relative;
+  height: 100%;
+  border-radius: 37px;
+  background: var(--bg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px;
+  padding: 0 1.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  flex: none;
+}
+
+.island {
+  width: 82px;
+  height: 24px;
+  border-radius: 20px;
+  background: #000;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 10px;
+
+  i {
+    width: 3px;
+    background: var(--text);
+    border-radius: 1px;
+
+    &:nth-child(1) {
+      height: 40%;
+    }
+    &:nth-child(2) {
+      height: 60%;
+    }
+    &:nth-child(3) {
+      height: 80%;
+    }
+    &:nth-child(4) {
+      height: 100%;
+    }
+  }
+}
+
+// Panel
+.panel {
+  @include surface(1);
+  border-radius: var(--radius);
+  padding: 1rem;
+  min-width: 0;
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.panelTitle {
+  @include label;
+  font-size: 0.625rem;
+  color: var(--text-2);
+}

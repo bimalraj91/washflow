@@ -1,0 +1,205 @@
+@use "../../../styles/tokens" as *;
+@use "../../../styles/mixins" as *;
+
+.section {
+  @include section-pad;
+  background: var(--bg-2);
+  border-block: 1px solid var(--line);
+}
+
+.settings {
+  display: grid;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  overflow: hidden;
+
+  @include up($bp-md) {
+    grid-template-columns: 240px 1fr;
+    min-height: 420px;
+  }
+}
+
+.sideNav {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--line);
+  background: #0f1312;
+  scrollbar-width: none;
+
+  @include up($bp-md) {
+    flex-direction: column;
+    border-bottom: 0;
+    border-right: 1px solid var(--line);
+    padding: 1rem;
+  }
+}
+
+.navBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex: none;
+  min-height: 44px;
+  padding: 0 0.85rem;
+  border-radius: var(--radius-sm);
+  color: var(--text-2);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: left;
+  white-space: nowrap;
+  transition: all 0.25s;
+
+  @include hover {
+    color: var(--text);
+    background: var(--surface);
+  }
+}
+
+.navOn {
+  background: var(--surface-2);
+  color: var(--text);
+  box-shadow: inset 2px 0 0 var(--volt);
+
+  svg {
+    color: var(--volt);
+  }
+}
+
+.pane {
+  padding: clamp(1.1rem, 3vw, 1.75rem);
+  min-width: 0;
+}
+
+.paneHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.paneTitle {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.rows li {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-top: 1px solid var(--line);
+  transition: opacity 0.3s;
+}
+
+.off {
+  opacity: 0.5;
+}
+
+.rMain {
+  display: grid;
+
+  b {
+    font-weight: 600;
+  }
+
+  small {
+    font-size: 0.8125rem;
+    color: var(--text-3);
+  }
+}
+
+.toggle {
+  display: flex;
+  width: 44px;
+  height: 26px;
+  padding: 3px;
+  border-radius: 13px;
+  background: var(--surface-3);
+  justify-content: flex-start;
+  transition: background-color 0.25s;
+
+  span {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--text-2);
+  }
+}
+
+.toggleOn {
+  justify-content: flex-end;
+  background: var(--volt);
+
+  span {
+    background: var(--bg);
+  }
+}
+
+.banks {
+  display: grid;
+  gap: 0.75rem;
+
+  @include up($bp-sm) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.bankCard {
+  display: grid;
+  gap: 0.4rem;
+  padding: 1.1rem;
+  border-radius: var(--radius);
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+
+  svg {
+    color: var(--text-2);
+  }
+
+  span {
+    font-family: var(--font-mono);
+    color: var(--text-2);
+  }
+
+  small {
+    color: var(--volt);
+    font-size: 0.75rem;
+  }
+}
+
+.bankPrimary {
+  border-color: rgba(199, 255, 69, 0.35);
+  background: linear-gradient(150deg, rgba(199, 255, 69, 0.08), var(--bg-2) 60%);
+}
+
+.biz {
+  display: grid;
+  gap: 1px;
+  background: var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+
+  @include up($bp-sm) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  > div {
+    padding: 0.85rem 1rem;
+    background: var(--surface);
+  }
+
+  dt {
+    font-size: 0.75rem;
+    color: var(--text-3);
+  }
+
+  dd {
+    font-weight: 600;
+  }
+}

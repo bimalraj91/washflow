@@ -1,0 +1,393 @@
+@use "../../../styles/tokens" as *;
+@use "../../../styles/mixins" as *;
+
+.section {
+  @include section-pad;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+
+  @include up($bp-lg) {
+    grid-template-columns: 1fr 1.1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+}
+
+.vehicle,
+.customer {
+  position: relative;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  min-width: 0;
+}
+
+// ---------- Vehicle ----------
+.vehicle {
+  background:
+    radial-gradient(80% 50% at 50% 28%, rgba(199, 255, 69, 0.08), transparent 70%),
+    var(--surface);
+}
+
+.vTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.vLabel,
+.histLabel {
+  @include label;
+  font-size: 0.625rem;
+  color: var(--text-2);
+}
+
+.vVisual {
+  margin: 0.5rem -8% -1rem;
+}
+
+.vCar {
+  width: 100%;
+  height: auto;
+}
+
+.plate {
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  background: var(--text);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+}
+
+.vModel {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  margin: 0.75rem 0 1.25rem;
+  letter-spacing: -0.03em;
+}
+
+.specs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  padding: 1rem 0 1.25rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 1.25rem;
+
+  @include up($bp-sm) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  dt {
+    font-size: 0.75rem;
+    color: var(--text-3);
+  }
+
+  dd {
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+}
+
+.history {
+  display: grid;
+  margin-top: 0.75rem;
+
+  li {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr auto auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0;
+    border-top: 1px solid var(--line);
+    font-size: 0.875rem;
+  }
+}
+
+.hDate {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-3);
+}
+
+.hService {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// ---------- Customer ----------
+.customerWrap {
+  @include up($bp-lg) {
+    margin-top: 5rem;
+  }
+}
+
+.cHead {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.cAvatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--volt), var(--sage));
+  color: var(--bg);
+  font-weight: 700;
+}
+
+.cWho {
+  flex: 1;
+  min-width: 0;
+}
+
+.cName {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.cSince {
+  font-size: 0.8125rem;
+  color: var(--text-3);
+}
+
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  font-size: 0.8125rem;
+  color: var(--text-2);
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+}
+
+.vehicles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 1rem 0 1.25rem;
+}
+
+.vPlate {
+  padding: 0.25rem 0.55rem;
+  border-radius: 5px;
+  border: 1px solid var(--line-2);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.due {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--radius);
+  background: rgba(242, 193, 78, 0.06);
+  border: 1px solid rgba(242, 193, 78, 0.22);
+  transition: all 0.5s var(--ease-out);
+}
+
+.dueClear {
+  background: var(--volt-dim);
+  border-color: rgba(199, 255, 69, 0.3);
+
+  .dueValue {
+    color: var(--volt);
+  }
+}
+
+.dueLabel {
+  @include label;
+  font-size: 0.625rem;
+  color: var(--text-2);
+}
+
+.dueValue {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--amber);
+  font-variant-numeric: tabular-nums;
+}
+
+.dueMeta {
+  font-size: 0.8125rem;
+  color: var(--text-3);
+}
+
+.bulk {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--text);
+  color: var(--bg);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: transform 0.2s;
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.ledger {
+  display: grid;
+  margin: 1.25rem 0;
+}
+
+.lRow {
+  display: grid;
+  grid-template-columns: 3.75rem 1fr 4.5rem 4.5rem;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--line);
+  font-size: 0.8125rem;
+  overflow: hidden;
+
+  span:nth-child(n + 3) {
+    text-align: right;
+  }
+}
+
+.lHead {
+  border-top: 0;
+  color: var(--text-3);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.lDate {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-3);
+}
+
+.credit {
+  color: var(--sage);
+}
+
+.lNew {
+  background: var(--volt-dim);
+  border-radius: 6px;
+  padding-inline: 0.4rem;
+}
+
+.invoice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed var(--line-2);
+}
+
+.invNo {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-2);
+
+  @include hover {
+    color: var(--text);
+    border-color: var(--line-2);
+  }
+}
+
+.copied {
+  color: var(--volt);
+  font-size: 0.75rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.remind,
+.send {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 44px;
+  padding: 0 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.remind {
+  border: 1px solid var(--line-2);
+  color: var(--text);
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: default;
+  }
+}
+
+.reminded {
+  color: var(--sage);
+}
+
+.send {
+  min-width: 168px;
+  justify-content: center;
+  background: var(--volt);
+  color: #0a0d05;
+  overflow: hidden;
+  transition: background-color 0.3s;
+}
+
+.sent {
+  background: var(--sage);
+}
+
+.sendTrack {
+  display: inline-grid;
+  overflow: hidden;
+}
+
+.sendLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  white-space: nowrap;
+}

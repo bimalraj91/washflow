@@ -1,0 +1,136 @@
+@use "../../../styles/tokens" as *;
+@use "../../../styles/mixins" as *;
+
+.section {
+  position: relative;
+  padding-block: clamp(6rem, 14vw, 11rem) clamp(4rem, 8vw, 6rem);
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(60% 60% at 50% 100%, rgba(199, 255, 69, 0.12), transparent 70%),
+    var(--bg);
+}
+
+.lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.6;
+
+  path {
+    fill: none;
+    stroke: rgba(199, 255, 69, 0.22);
+    stroke-width: 1;
+    stroke-dasharray: 160 1400;
+    vector-effect: non-scaling-stroke;
+
+    @include motion {
+      animation: flow 9s linear infinite;
+    }
+  }
+}
+
+@keyframes flow {
+  to {
+    stroke-dashoffset: -1560;
+  }
+}
+
+.inner {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.eyebrow {
+  @include label;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text-2);
+  margin-bottom: 2rem;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--volt);
+  box-shadow: 0 0 12px var(--volt);
+}
+
+.title {
+  @include display;
+  font-size: clamp(2.4rem, 8.6vw, 9rem);
+  line-height: 0.88;
+
+  span {
+    display: block;
+  }
+
+  em {
+    font-style: normal;
+    color: var(--volt);
+  }
+}
+
+.lead {
+  max-width: 42ch;
+  margin: 2rem 0 2.5rem;
+  color: var(--text-2);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.fragment {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 220px));
+  gap: 0.75rem;
+  margin-top: clamp(3.5rem, 8vw, 6rem);
+  transform: perspective(1200px) rotateX(24deg);
+  transform-origin: 50% 0;
+  mask-image: linear-gradient(180deg, #000 40%, transparent);
+
+  @include down($bp-md) {
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+  }
+}
+
+.fCard {
+  display: grid;
+  gap: 0.4rem;
+  justify-items: start;
+  padding: 1rem;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--line-2);
+  text-align: left;
+
+  span:first-child {
+    font-size: 0.75rem;
+    color: var(--text-3);
+  }
+
+  b {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 2.4vw, 1.6rem);
+    letter-spacing: -0.03em;
+  }
+
+  @include down($bp-sm) {
+    padding: 0.75rem;
+
+    > :last-child {
+      display: none;
+    }
+  }
+}
