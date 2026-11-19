@@ -77,7 +77,11 @@ export function Footer() {
 
         <div className={styles.bottom}>
           <p>
-            © {year} {SITE.legalName}. All product screens show demo data.
+            © {year} {SITE.legalName}. All product screens show demo data. Photography via{" "}
+            <a href="https://unsplash.com/?utm_source=washflow&utm_medium=referral" target="_blank" rel="noopener noreferrer">
+              Unsplash
+            </a>
+            .
           </p>
           <ul className={styles.legal}>
             <li>

@@ -1,7 +1,8 @@
 import { ArrowDown, Droplets } from "lucide-react";
 import { Button } from "@/components/ui/Button/Button";
 import { StatusChip } from "@/components/ui/StatusChip/StatusChip";
-import { CarRender } from "@/components/mockups/CarRender";
+import Image from "next/image";
+import { PHOTOS } from "@/lib/images";
 import { DemoTag } from "@/components/mockups/Frames";
 import { formatINR } from "@/lib/utils";
 import { OVERVIEW } from "@/lib/mockData";
@@ -13,9 +14,22 @@ const LINES = [["Run your car wash."], ["Not your ", <em key="c">chaos.</em>]];
 export function Hero() {
   return (
     <section id="top" className={styles.hero} aria-labelledby="hero-title">
-      <div className={styles.stage} aria-hidden="true">
-        <div className={styles.beam} />
-        <div className={styles.grid} />
+      <div className={styles.stage} aria-hidden="true" />
+
+      {/* Hero photograph: full-height panel feathered into the dark */}
+      <div className={styles.photo} data-hero-car>
+        <div className={styles.photoInner}>
+          <Image
+            src={PHOTOS.heroWash.src}
+            alt={PHOTOS.heroWash.alt}
+            fill
+            priority
+            fetchPriority="high"
+            quality={82}
+            sizes="(min-width: 1024px) 68vw, 100vw"
+            className={styles.photoImg}
+          />
+        </div>
       </div>
 
       <div className={`container ${styles.inner}`}>
@@ -52,14 +66,9 @@ export function Hero() {
               </Button>
             </div>
           </div>
-          {/* Vehicle + floating product widgets */}
+          {/* Floating product widgets over the photograph */}
           <div className={styles.scene}>
-            <div className={styles.carWrap} data-hero-car>
-              <div className={styles.carMask}>
-                <CarRender className={styles.car} />
-                <span className={styles.arch} aria-hidden="true" />
-              </div>
-            </div>
+            <div className={styles.sceneSpacer} />
 
             <div className={`${styles.widget} ${styles.revenue}`} data-depth="0.6" aria-hidden="true">
               <div className={styles.wHead}>

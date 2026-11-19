@@ -17,8 +17,8 @@ export function HeroMotion() {
       const car = hero.querySelector("[data-hero-car]");
       if (car) {
         gsap.to(car, {
-          yPercent: 14,
-          scale: 1.04,
+          yPercent: 10,
+          scale: 1.05,
           ease: "none",
           scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true },
         });
@@ -26,10 +26,13 @@ export function HeroMotion() {
 
       // Scroll-out: copy lifts away and softens while the car stays the subject.
       gsap.utils.toArray<HTMLElement>("[data-hero-fade]", hero).forEach((el, i) => {
-        gsap.to(el, {
+        // fromTo with explicit start: the CSS entrance may still be mid-fade
+        // when this runs, and a plain .to() would capture opacity 0 as "start".
+        gsap.fromTo(el, { yPercent: 0, opacity: 1 }, {
           yPercent: -10 - i * 6,
           opacity: 0.15,
           ease: "none",
+          immediateRender: false,
           scrollTrigger: { trigger: hero, start: "12% top", end: "75% top", scrub: true },
         });
       });

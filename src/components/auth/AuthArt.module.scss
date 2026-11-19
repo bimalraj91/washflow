@@ -7,18 +7,57 @@
   z-index: 1;
 }
 
-.floor {
+// ---- photograph ----
+.photo {
   position: absolute;
-  inset: 56% 0 0;
-  background-image:
-    linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 72px 72px;
-  background-position: center top;
-  transform: perspective(480px) rotateX(64deg);
-  transform-origin: top;
-  mask-image: radial-gradient(70% 100% at 50% 0%, #000, transparent 80%);
-  opacity: 0.6;
+  inset: 0;
+}
+
+.photoImg {
+  object-fit: cover;
+  filter: saturate(0.82) contrast(1.06);
+}
+
+.photo_signin .photoImg {
+  object-position: 62% 50%;
+}
+
+.photo_signup .photoImg {
+  object-position: 50% 40%;
+}
+
+.photo_verify .photoImg {
+  object-position: 50% 50%;
+}
+
+// Studio shot on pure black: keep the whole car in frame and let the black
+// photo background merge with the panel.
+.photo_success {
+  background: #000; // matches the photo's studio black, so no visible edges
+}
+
+.photo_success .photoImg {
+  object-fit: contain;
+  object-position: 50% 64%;
+  transform: scale(1.12);
+}
+
+// Busy foam detail behind cards: deepen the scrim so UI reads first
+.photo_signup::after,
+.photo_verify::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 9, 9, 0.38);
+}
+
+// Legibility: darken the top for cards and the bottom for the caption
+.scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(7, 9, 9, 0.55) 0%, rgba(7, 9, 9, 0.1) 35%, rgba(7, 9, 9, 0.2) 55%, rgba(7, 9, 9, 0.92) 100%),
+    radial-gradient(70% 40% at 50% 100%, rgba(199, 255, 69, 0.14), transparent 70%);
 }
 
 .bubbles {
@@ -139,19 +178,6 @@
 }
 
 // ---- sign in ----
-.carStage {
-  position: absolute;
-  left: -6%;
-  right: -6%;
-  top: 30%;
-  z-index: 1;
-}
-
-.car {
-  width: 100%;
-  height: auto;
-}
-
 .tl {
   top: 9%;
   left: 8%;
@@ -268,7 +294,7 @@
   position: absolute;
   width: 380px;
   height: 380px;
-  margin-top: -17rem;
+  margin-top: -6rem;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(199, 255, 69, 0.2), transparent 65%);
   animation: pulse 4s ease-in-out infinite alternate;
@@ -284,22 +310,14 @@
 .seal {
   position: relative;
   width: 130px;
-  margin-top: -17rem;
+  margin-top: -6rem;
   filter: drop-shadow(0 0 30px rgba(199, 255, 69, 0.4));
 }
 
 .confetti {
   position: absolute;
-  margin-top: -17rem;
+  margin-top: -6rem;
   border-radius: 1px;
-}
-
-.carLow {
-  position: absolute;
-  left: 4%;
-  right: 4%;
-  bottom: 9.5rem;
-  opacity: 0.95;
 }
 
 .chip {

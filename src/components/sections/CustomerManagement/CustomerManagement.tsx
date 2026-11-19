@@ -1,6 +1,7 @@
 import { SectionHeading } from "@/components/ui/SectionHeading/SectionHeading";
 import { StatusChip } from "@/components/ui/StatusChip/StatusChip";
-import { CarRender } from "@/components/mockups/CarRender";
+import Image from "next/image";
+import { PHOTOS } from "@/lib/images";
 import { DemoTag } from "@/components/mockups/Frames";
 import { VEHICLE } from "@/lib/mockData";
 import { formatINR } from "@/lib/utils";
@@ -36,8 +37,10 @@ export function CustomerManagement() {
               <span className={styles.vLabel}>Vehicle profile</span>
               <DemoTag />
             </div>
-            <div className={styles.vVisual} data-parallax="0.12">
-              <CarRender className={styles.vCar} title="Vehicle profile image — black SUV" />
+            <div className={styles.vVisual} data-mask>
+              <div className={styles.vPhoto}>
+                <Image src={PHOTOS.vehicle.src} alt={PHOTOS.vehicle.alt} fill sizes="(min-width: 1024px) 420px, 90vw" quality={78} className={styles.vCar} />
+              </div>
             </div>
             <p className={styles.plate}>{VEHICLE.reg}</p>
             <h3 className={styles.vModel}>{VEHICLE.model}</h3>

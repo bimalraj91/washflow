@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { Button } from "@/components/ui/Button/Button";
+import { PHOTOS } from "@/lib/images";
 import { StatusChip } from "@/components/ui/StatusChip/StatusChip";
 import { DemoTag } from "@/components/mockups/Frames";
 import { formatINR } from "@/lib/utils";
@@ -8,6 +10,9 @@ import styles from "./CTA.module.scss";
 export function CTA() {
   return (
     <section id="book-demo" className={styles.section} aria-labelledby="cta-title">
+      <div className={styles.bg} aria-hidden="true" data-parallax="0.18">
+        <Image src={PHOTOS.ctaFoam.src} alt="" fill sizes="100vw" quality={70} className={styles.bgImg} />
+      </div>
       <svg className={styles.lines} viewBox="0 0 1440 600" preserveAspectRatio="none" aria-hidden="true">
         {Array.from({ length: 13 }, (_, i) => (
           <path key={i} d={`M${720 + (i - 6) * 20} 380 L${720 + (i - 6) * 190} 600`} />

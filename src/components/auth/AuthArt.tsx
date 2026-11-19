@@ -2,7 +2,8 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { Check, Droplets, Mail, ShieldCheck, Users, Wallet, Car } from "lucide-react";
-import { CarRender } from "@/components/mockups/CarRender";
+import Image from "next/image";
+import { PHOTOS, type Photo } from "@/lib/images";
 import styles from "./AuthArt.module.scss";
 
 export type ArtKind = "signin" | "signup" | "verify" | "success";
@@ -47,11 +48,6 @@ function Float({ children, className, delay = 0, y = 10 }: { children: React.Rea
 function SignIn() {
   return (
     <>
-      <div className={styles.carStage}>
-        <motion.div initial={{ x: -120, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 1.6, ease: EASE }}>
-          <CarRender className={styles.car} />
-        </motion.div>
-      </div>
       <Float className={`${styles.card} ${styles.tl}`} delay={0.5}>
         <p className={styles.k}>Today&apos;s revenue</p>
         <p className={styles.v}>₹84,650</p>
@@ -184,11 +180,6 @@ function Success() {
           <motion.path d="M36 62l16 16 32-36" stroke="var(--volt)" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, delay: 0.9, ease: EASE }} />
         </svg>
       </motion.div>
-      <div className={styles.carLow}>
-        <motion.div initial={{ y: 60, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1.4, delay: 0.5, ease: EASE }}>
-          <CarRender className={styles.car} />
-        </motion.div>
-      </div>
       <Float className={`${styles.card} ${styles.chip}`} delay={1.4} y={6}>
         <p className={styles.k}>
           <Droplets size={12} /> Workspace ready
@@ -201,10 +192,34 @@ function Success() {
   );
 }
 
+const PHOTO: Record<ArtKind, Photo> = {
+  signin: PHOTOS.signIn,
+  signup: PHOTOS.signUp,
+  verify: PHOTOS.verify,
+  success: PHOTOS.success,
+};
+
+/** Full-bleed photograph that slowly settles in (scale + exposure). */
+function Backdrop({ kind }: { kind: ArtKind }) {
+  const reduce = useReducedMotion();
+  const p = PHOTO[kind];
+  return (
+    <motion.div
+      className={`${styles.photo} ${styles[`photo_${kind}`]}`}
+      initial={reduce ? false : { scale: 1.12, opacity: 0, filter: "brightness(0.4)" }}
+      animate={{ scale: 1, opacity: 1, filter: "brightness(1)" }}
+      transition={{ duration: 2.4, ease: EASE }}
+    >
+      <Image src={p.src} alt="" fill priority sizes="(min-width: 1024px) 52vw, 1px" quality={80} className={styles.photoImg} />
+    </motion.div>
+  );
+}
+
 export function AuthArt({ kind }: { kind: ArtKind }) {
   return (
     <div className={styles.art} key={kind}>
-      <div className={styles.floor} />
+      <Backdrop kind={kind} />
+      <div className={styles.scrim} />
       <Bubbles />
       {kind === "signin" && <SignIn />}
       {kind === "signup" && <SignUp />}

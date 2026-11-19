@@ -48,12 +48,40 @@
 }
 
 .vVisual {
-  margin: 0.5rem -8% -1rem;
+  position: relative;
+  margin: 0.75rem 0 1.25rem;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 50px -30px rgba(0, 0, 0, 0.9);
+
+  // bottom vignette so the plate/model text below reads as one block
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(8, 10, 10, 0.6));
+    pointer-events: none;
+  }
+}
+
+.vPhoto {
+  position: absolute;
+  inset: 0;
+  transition: transform 1.2s var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .vVisual:hover .vPhoto {
+    transform: scale(1.05);
+  }
 }
 
 .vCar {
-  width: 100%;
-  height: auto;
+  object-fit: cover;
+  object-position: 50% 62%;
+  filter: saturate(0.85) contrast(1.05);
 }
 
 .plate {

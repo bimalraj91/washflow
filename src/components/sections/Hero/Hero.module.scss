@@ -16,8 +16,7 @@
 }
 
 // ---------- Studio backdrop ----------
-// A dark photo-studio: overhead softbox, a faint lime bounce on the floor and
-// a horizon line where wall meets sweep.
+// Dark studio backdrop behind the photograph.
 .stage {
   position: absolute;
   inset: 0;
@@ -34,41 +33,51 @@
   }
 }
 
-// Overhead softbox: a wide, soft rectangle of light — no hard cone
-.beam {
+// ---------- Photograph ----------
+.photo {
   position: absolute;
-  top: -6%;
-  right: 4%;
-  width: 58%;
-  height: 54%;
-  background: radial-gradient(50% 50% at 50% 0%, rgba(255, 255, 255, 0.09), transparent 72%);
-  filter: blur(8px);
-  animation: breathe 9s var(--ease-in-out) infinite alternate;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  will-change: transform;
 
+  // Mobile: the photo sits behind the copy under a legibility scrim
   &::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 22%;
-    right: 22%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(8, 10, 10, 0.78) 0%, rgba(8, 10, 10, 0.55) 45%, rgba(8, 10, 10, 0.7) 75%, var(--bg) 100%);
+  }
+
+  @include up($bp-lg) {
+    left: auto;
+    width: 70%;
+    // Feather the left edge into the studio dark
+    mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.55) 18%, #000 40%);
+
+    &::before {
+      background:
+        linear-gradient(180deg, rgba(8, 10, 10, 0.7) 0%, transparent 20%, transparent 62%, var(--bg) 100%),
+        radial-gradient(60% 35% at 55% 100%, rgba(199, 255, 69, 0.12), transparent 70%);
+    }
   }
 }
 
-// Studio floor: perspective lines converging at the horizon
-.grid {
+.photoInner {
   position: absolute;
-  inset: 62% 0 0;
-  background-image:
-    linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 96px 96px;
-  background-position: center top;
-  transform: perspective(520px) rotateX(64deg);
-  transform-origin: top;
-  mask-image: radial-gradient(60% 100% at 68% 0%, #000, transparent 80%);
-  opacity: 0.55;
+  inset: 0;
+
+  @include motion {
+    // Lens settles: slow zoom-out + exposure lift (`scale` keeps GSAP's transform free)
+    animation: photoIn 3.2s var(--ease-out) both;
+  }
+}
+
+.photoImg {
+  object-fit: cover;
+  object-position: 58% 55%;
+  filter: saturate(0.8) contrast(1.08) brightness(0.85);
 }
 
 .inner {
@@ -227,41 +236,8 @@
   }
 }
 
-.carWrap {
-  will-change: transform;
-
-  @include motion {
-    // Dolly in from the right (uses `translate` so GSAP keeps `transform`)
-    animation: dolly 2.4s 0.2s var(--ease-out) both;
-  }
-}
-
-.carMask {
-  position: relative;
-  animation:
-    maskReveal 1.8s 0.25s var(--ease-in-out) both,
-    focusPull 2s 0.25s var(--ease-out) both;
-}
-
-.car {
-  width: 100%;
-  height: auto;
-}
-
-// The "wash arch": a light gate that sweeps across the paint
-.arch {
-  position: absolute;
-  top: 10%;
-  bottom: 22%;
-  left: 0;
-  width: 14%;
-  background: linear-gradient(90deg, transparent, rgba(199, 255, 69, 0.07) 45%, rgba(255, 255, 255, 0.16) 50%, rgba(199, 255, 69, 0.07) 55%, transparent);
-  mix-blend-mode: screen;
-  opacity: 0;
-
-  @include motion {
-    animation: sweep 6s 2s var(--ease-in-out) infinite;
-  }
+.sceneSpacer {
+  aspect-ratio: 1000 / 420;
 }
 
 // ---------- Widgets ----------
@@ -517,25 +493,21 @@
 }
 
 // ---------- Keyframes ----------
+@keyframes photoIn {
+  from {
+    scale: 1.14;
+    filter: brightness(0.3) blur(6px);
+  }
+  to {
+    scale: 1;
+    filter: brightness(1) blur(0);
+  }
+}
+
 @keyframes stagePush {
   from {
     transform: scale(1.12);
     opacity: 0;
-  }
-}
-
-@keyframes dolly {
-  from {
-    translate: 7% 0;
-  }
-}
-
-@keyframes focusPull {
-  from {
-    filter: blur(10px) brightness(0.5);
-  }
-  to {
-    filter: blur(0) brightness(1);
   }
 }
 
@@ -549,17 +521,6 @@
   from {
     opacity: 0;
     transform: translate3d(0, 16px, 0);
-  }
-}
-
-@keyframes maskReveal {
-  from {
-    clip-path: inset(0 100% 0 0);
-    opacity: 0.3;
-  }
-  to {
-    clip-path: inset(0 0 0 0);
-    opacity: 1;
   }
 }
 
@@ -579,32 +540,6 @@
 @keyframes grow {
   from {
     transform: scaleX(0);
-  }
-}
-
-@keyframes sweep {
-  0% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  45% {
-    transform: translateX(700%);
-    opacity: 1;
-  }
-  50%,
-  100% {
-    transform: translateX(700%);
-    opacity: 0;
-  }
-}
-
-@keyframes breathe {
-  to {
-    opacity: 0.55;
-    transform: translateX(-3%);
   }
 }
 

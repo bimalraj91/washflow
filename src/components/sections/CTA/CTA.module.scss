@@ -11,6 +11,21 @@
     var(--bg);
 }
 
+// Foam-wash photograph, heavily graded so the type stays the hero
+.bg {
+  position: absolute;
+  inset: -12% 0;
+  z-index: -2;
+  opacity: 0.2;
+  mask-image: radial-gradient(70% 60% at 50% 50%, #000 20%, transparent 80%);
+}
+
+.bgImg {
+  object-fit: cover;
+  object-position: 50% 60%;
+  filter: grayscale(0.85) contrast(1.15) brightness(0.55);
+}
+
 // A horizon line + converging floor rays instead of animated noodles
 .lines {
   position: absolute;
