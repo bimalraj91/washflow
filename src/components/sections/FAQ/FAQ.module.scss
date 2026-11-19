@@ -42,10 +42,9 @@
 
 .title {
   @include display;
-  font-size: clamp(2.4rem, 5.5vw, 5rem);
+  font-size: clamp(2.4rem, 5.8vw, 5.25rem);
 
   em {
-    font-style: normal;
     color: var(--volt);
   }
 }

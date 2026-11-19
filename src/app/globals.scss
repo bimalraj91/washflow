@@ -8,6 +8,7 @@
   --surface: #141917;
   --surface-2: #1a201e;
   --surface-3: #212826;
+  --font-display: var(--font-body);
   --volt: #c7ff45;
   --volt-dim: rgba(199, 255, 69, 0.12);
   --volt-glow: rgba(199, 255, 69, 0.35);
@@ -16,7 +17,7 @@
   --text-2: #a1aaa4;
   // Nudged up from #707A74 so small muted text clears WCAG AA (4.5:1) on --bg.
   --text-3: #7f8983;
-  --line: rgba(255, 255, 255, 0.08);
+  --line: rgba(255, 255, 255, 0.07);
   --line-2: rgba(255, 255, 255, 0.14);
 
   // Status (always paired with an icon or text label — never colour alone)
@@ -26,8 +27,11 @@
 
   --radius-xs: 4px;
   --radius-sm: 8px;
-  --radius: 14px;
-  --radius-lg: 22px;
+  --radius: 12px;
+  --radius-lg: 18px;
+  // Card depth: a faint top light, hairline edge, soft contact shadow
+  --card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0) 38%), var(--surface);
+  --card-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 24px 48px -28px rgba(0, 0, 0, 0.8);
 
   --gutter: clamp(1rem, 4vw, 2.5rem);
   --nav-h: 72px;
@@ -82,9 +86,9 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
   text-wrap: balance;
 }
 
@@ -170,6 +174,23 @@ button {
 
 .tabular {
   font-variant-numeric: tabular-nums;
+}
+
+// Section seams: a fading hairline instead of a hard full-bleed rule
+main > section {
+  position: relative;
+}
+
+main > section:not(:first-child)::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: var(--gutter);
+  right: var(--gutter);
+  height: 1px;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--line-2) 30%, var(--line-2) 70%, transparent);
 }
 
 // Lenis

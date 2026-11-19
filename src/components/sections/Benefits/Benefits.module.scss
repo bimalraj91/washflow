@@ -36,10 +36,9 @@
 
 .title {
   @include display;
-  font-size: clamp(2.4rem, 7vw, 6.5rem);
+  font-size: clamp(2.4rem, 5.8vw, 5.25rem);
 
   em {
-    font-style: normal;
     color: var(--volt);
   }
 }
@@ -98,7 +97,7 @@
   font-size: clamp(6rem, 12vw, 10rem);
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.04em;
   color: rgba(255, 255, 255, 0.04);
   transition:
     color 0.4s,

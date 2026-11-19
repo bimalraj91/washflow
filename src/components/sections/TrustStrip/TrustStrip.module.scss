@@ -2,33 +2,32 @@
 
 .strip {
   position: relative;
-  padding-block: 1.6rem;
-  border-block: 1px solid var(--line);
-  background: var(--bg-2);
+  padding-block: 1.75rem;
+  background: var(--bg);
 }
 
+// Editorial ticker: serif italic, sentence case, hairline dot separators
 .item {
   display: inline-flex;
   align-items: center;
   gap: clamp(2rem, 5vw, 4rem);
-  font-family: var(--font-display);
-  font-size: clamp(1rem, 1.8vw, 1.4rem);
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--text-2);
-  transition: color 0.3s;
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  letter-spacing: -0.01em;
+  color: var(--text-3);
+  transition: color 0.5s var(--ease-out);
 
   @include hover {
     color: var(--text);
   }
 }
 
-// Diamond separator sits before each item
 .mark {
   order: -1;
-  width: 7px;
-  height: 7px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
   background: var(--volt);
-  transform: rotate(45deg);
+  opacity: 0.8;
 }

@@ -9,13 +9,10 @@ export function CTA() {
   return (
     <section id="book-demo" className={styles.section} aria-labelledby="cta-title">
       <svg className={styles.lines} viewBox="0 0 1440 600" preserveAspectRatio="none" aria-hidden="true">
-        {Array.from({ length: 9 }, (_, i) => (
-          <path
-            key={i}
-            d={`M-100 ${520 - i * 46} C 400 ${470 - i * 40}, 900 ${560 - i * 52}, 1540 ${300 - i * 30}`}
-            style={{ animationDelay: `${i * -1.1}s` }}
-          />
+        {Array.from({ length: 13 }, (_, i) => (
+          <path key={i} d={`M${720 + (i - 6) * 20} 380 L${720 + (i - 6) * 190} 600`} />
         ))}
+        <path d="M0 380 H1440" />
       </svg>
 
       <div className={`container ${styles.inner}`}>

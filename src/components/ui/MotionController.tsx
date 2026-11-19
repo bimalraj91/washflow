@@ -22,13 +22,13 @@ export function MotionController() {
 
       const singles = gsap.utils.toArray<HTMLElement>("[data-reveal]").filter(belowFold);
       singles.forEach((el) =>
-        gsap.set(el, { autoAlpha: 0, y: el.dataset.reveal === "fade" ? 0 : 32 }),
+        gsap.set(el, { autoAlpha: 0, y: el.dataset.reveal === "fade" ? 0 : 44 }),
       );
       ScrollTrigger.batch(singles, {
         start: "top 88%",
         once: true,
         onEnter: (batch) =>
-          gsap.to(batch, { autoAlpha: 1, y: 0, duration: 1, stagger: 0.08, overwrite: true }),
+          gsap.to(batch, { autoAlpha: 1, y: 0, duration: 1.4, stagger: 0.1, overwrite: true }),
       });
 
       gsap.utils.toArray<HTMLElement>("[data-reveal-stagger]").forEach((parent) => {
@@ -39,7 +39,7 @@ export function MotionController() {
           trigger: parent,
           start: "top 85%",
           once: true,
-          onEnter: () => gsap.to(kids, { autoAlpha: 1, y: 0, stagger: 0.07, duration: 0.8 }),
+          onEnter: () => gsap.to(kids, { autoAlpha: 1, y: 0, stagger: 0.09, duration: 1.2 }),
         });
       });
     });

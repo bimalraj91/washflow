@@ -7,12 +7,12 @@
   justify-content: center;
   gap: 0.6rem;
   min-height: 44px;
-  padding: 0 1.25rem;
-  border-radius: var(--radius-sm);
+  padding: 0 1.4rem;
+  border-radius: 999px;
   font-family: var(--font-body);
   font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
+  font-weight: 550;
+  letter-spacing: 0;
   white-space: nowrap;
   isolation: isolate;
   overflow: hidden;
@@ -20,7 +20,7 @@
     background-color 0.3s var(--ease-out),
     color 0.3s var(--ease-out),
     border-color 0.3s var(--ease-out),
-    transform 0.2s var(--ease-out),
+    transform 0.3s var(--ease-out),
     box-shadow 0.4s var(--ease-out);
 
   &:active {
@@ -30,7 +30,7 @@
 
 .lg {
   min-height: 54px;
-  padding: 0 1.6rem;
+  padding: 0 1.75rem;
   font-size: 0.9375rem;
 }
 
@@ -45,13 +45,13 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
     transform: translateX(-120%);
     transition: transform 0.7s var(--ease-out);
   }
 
   @include hover {
-    box-shadow: 0 10px 40px -10px var(--volt-glow);
+    box-shadow: 0 14px 44px -14px var(--volt-glow);
 
     &::before {
       transform: translateX(120%);
@@ -60,13 +60,13 @@
 }
 
 .ghost {
-  background: rgba(255, 255, 255, 0.03);
+  background: transparent;
   color: var(--text);
   border: 1px solid var(--line-2);
 
   @include hover {
-    border-color: rgba(199, 255, 69, 0.5);
-    background: rgba(199, 255, 69, 0.05);
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.05);
   }
 }
 

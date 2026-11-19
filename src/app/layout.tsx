@@ -1,5 +1,5 @@
 import type { Viewport } from "next";
-import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { rootMetadata } from "@/lib/seo";
 import { SmoothScroll } from "@/lib/animations/lenis";
 import { Navbar } from "@/components/layout/Navbar/Navbar";
@@ -8,10 +8,11 @@ import { DemoDialog } from "@/components/layout/DemoDialog/DemoDialog";
 import { CursorGlow } from "@/components/ui/CursorGlow/CursorGlow";
 import "./globals.scss";
 
-const display = Space_Grotesk({
+const serif = Instrument_Serif({
   subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["500", "600", "700"],
+  variable: "--font-serif",
+  weight: "400",
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -39,7 +40,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" className={`${display.variable} ${body.variable} ${mono.variable}`}>
+    <html lang="en-IN" className={`${serif.variable} ${body.variable} ${mono.variable}`}>
       <body>
         <a href="#main" className="skip-link">
           Skip to content

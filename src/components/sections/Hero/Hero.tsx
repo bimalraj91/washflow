@@ -8,11 +8,7 @@ import { OVERVIEW } from "@/lib/mockData";
 import { HeroMotion } from "./HeroMotion";
 import styles from "./Hero.module.scss";
 
-const LINES = [
-  ["Run your"],
-  ["car wash."],
-  ["Not your ", <em key="c">chaos.</em>],
-];
+const LINES = [["Run your car wash."], ["Not your ", <em key="c">chaos.</em>]];
 
 export function Hero() {
   return (
@@ -34,7 +30,7 @@ export function Hero() {
         <h1 id="hero-title" className={styles.title}>
           {LINES.map((line, i) => (
             <span key={i} className={styles.line}>
-              <span className={styles.lineInner} style={{ animationDelay: `${0.12 + i * 0.11}s` }}>
+              <span className={styles.lineInner} style={{ animationDelay: `${0.1 + i * 0.14}s` }}>
                 {line}
               </span>
             </span>

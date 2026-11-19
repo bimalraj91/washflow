@@ -7,7 +7,7 @@ import { useGSAP } from "@gsap/react";
 // Register exactly once for the whole client bundle.
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
-  gsap.defaults({ ease: "power3.out", duration: 0.9 });
+  gsap.defaults({ ease: "expo.out", duration: 1.1 });
 }
 
 /** Desktop + fine pointer + motion allowed — where 3D, pinning and parallax run. */

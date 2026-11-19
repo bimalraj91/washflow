@@ -42,11 +42,10 @@
 
 .title {
   @include display;
-  font-size: clamp(2.4rem, 7.5vw, 7rem);
+  font-size: clamp(2.4rem, 5.8vw, 5.25rem);
   max-width: 14ch;
 
   em {
-    font-style: normal;
     color: var(--volt);
   }
 }
@@ -392,7 +391,7 @@
 .iName {
   font-family: var(--font-display);
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .iSub {

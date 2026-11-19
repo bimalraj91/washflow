@@ -44,8 +44,18 @@ export function CarRender({ className, title = "Black performance SUV in a dark 
     <>
       <path d={body} fill={`url(#${id("paint")})`} />
       <path d={body} fill={`url(#${id("sheen")})`} />
+      <g clipPath={`url(#${id("bodyclip")})`}>
+        {/* overhead softbox streaking across the roof and shoulder */}
+        <path d="M330 150C420 100 500 80 700 80L840 84C760 96 520 112 330 150Z" fill="#fff" opacity=".16" />
+        <path d="M70 200C300 178 640 168 940 178L940 186C640 180 300 190 70 212Z" fill="#fff" opacity=".1" />
+        {/* soft occlusion along the sill grounds the body */}
+        <rect x="40" y="226" width="920" height="40" fill={`url(#${id("sill")})`} />
+        {/* long vertical strip-light reflection on the doors */}
+        <path d="M520 150L560 150L532 262L496 262Z" fill="#fff" opacity=".045" />
+      </g>
       <path d={body} fill="none" stroke={`url(#${id("rimlight")})`} strokeWidth={1.6} />
-      <path d={glass} fill={`url(#${id("glass")})`} stroke="rgba(255,255,255,.12)" />
+      <path d={glass} fill={`url(#${id("glass")})`} stroke="rgba(255,255,255,.14)" />
+      <path d="M430 140C470 114 506 100 556 97L592 97L552 140Z" fill="#fff" opacity=".07" />
       <path d="M612 89L606 148" stroke="#080a0a" strokeWidth={6} />
       {/* shoulder crease catching the light */}
       <path d="M96 206C300 186 600 176 934 183" stroke={`url(#${id("crease")})`} strokeWidth={1.5} fill="none" />
@@ -54,11 +64,13 @@ export function CarRender({ className, title = "Black performance SUV in a dark 
       <path d="M470 152L462 252M612 150L616 252" stroke="rgba(0,0,0,.55)" strokeWidth={1.2} />
       <rect x={545} y={192} width={34} height={4} rx={2} fill="rgba(255,255,255,.18)" />
       {/* lights */}
+      <ellipse cx="96" cy="206" rx="46" ry="16" fill={`url(#${id("lamp")})`} />
       <path d="M78 207L152 196" stroke="var(--volt)" strokeWidth={3.5} strokeLinecap="round" />
+      <ellipse cx="930" cy="188" rx="30" ry="12" fill="#ff5a4a" opacity=".16" />
       <path d="M902 179L944 194" stroke="#ff5a4a" strokeWidth={3} strokeLinecap="round" />
       {drops.map(([x, y, r], i) => (
         <g key={i}>
-          <circle cx={x} cy={y} r={r} fill="rgba(255,255,255,.08)" />
+          <circle cx={x} cy={y} r={r} fill="rgba(255,255,255,.06)" />
           <circle cx={x - r * 0.3} cy={y - r * 0.3} r={r * 0.35} fill="rgba(255,255,255,.55)" />
         </g>
       ))}
@@ -71,9 +83,10 @@ export function CarRender({ className, title = "Black performance SUV in a dark 
     <svg className={className} viewBox="0 0 1000 420" role="img" aria-label={title} preserveAspectRatio="xMidYMax meet">
       <defs>
         <linearGradient id={id("paint")} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#2c3431" />
-          <stop offset=".45" stopColor="#121614" />
-          <stop offset="1" stopColor="#060707" />
+          <stop offset="0" stopColor="#46514c" />
+          <stop offset=".3" stopColor="#222927" />
+          <stop offset=".62" stopColor="#0f1312" />
+          <stop offset="1" stopColor="#050606" />
         </linearGradient>
         <linearGradient id={id("sheen")} x1="0" y1="0" x2="1" y2="0">
           <stop offset="0" stopColor="#fff" stopOpacity="0" />
@@ -99,6 +112,17 @@ export function CarRender({ className, title = "Black performance SUV in a dark 
           <stop offset=".62" stopColor="#202826" />
           <stop offset="1" stopColor="#050606" />
         </linearGradient>
+        <linearGradient id={id("sill")} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#000" stopOpacity="0" />
+          <stop offset="1" stopColor="#000" stopOpacity=".7" />
+        </linearGradient>
+        <radialGradient id={id("lamp")}>
+          <stop offset="0" stopColor="#c7ff45" stopOpacity=".5" />
+          <stop offset="1" stopColor="#c7ff45" stopOpacity="0" />
+        </radialGradient>
+        <clipPath id={id("bodyclip")}>
+          <path d={body} />
+        </clipPath>
         <radialGradient id={id("rim")} cx=".35" cy=".3" r=".8">
           <stop offset="0" stopColor="#4a5550" />
           <stop offset=".6" stopColor="#161b19" />
@@ -125,7 +149,7 @@ export function CarRender({ className, title = "Black performance SUV in a dark 
       <g>{car}</g>
 
       {/* wet-floor reflection */}
-      <g mask={`url(#${id("reflmask")})`} opacity=".7">
+      <g mask={`url(#${id("reflmask")})`} opacity=".85">
         <g transform="matrix(1 0 0 -1 0 652)">{car}</g>
       </g>
     </svg>
