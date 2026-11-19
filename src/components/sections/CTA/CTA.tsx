@@ -29,8 +29,8 @@ export function CTA() {
           Bring every wash, customer, payment and operation together in one powerful system.
         </p>
         <div className={styles.ctas} data-reveal>
-          <Button href="/#book-demo" data-demo-trigger="" size="lg" arrow magnetic>
-            Book your demo
+          <Button href="/sign-up" size="lg" arrow magnetic>
+            Create your account
           </Button>
           <Button href="/#platform" variant="ghost" size="lg">
             Explore the platform

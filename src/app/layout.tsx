@@ -4,8 +4,8 @@ import { rootMetadata } from "@/lib/seo";
 import { SmoothScroll } from "@/lib/animations/lenis";
 import { Navbar } from "@/components/layout/Navbar/Navbar";
 import { Footer } from "@/components/layout/Footer/Footer";
-import { DemoDialog } from "@/components/layout/DemoDialog/DemoDialog";
 import { CursorGlow } from "@/components/ui/CursorGlow/CursorGlow";
+import { SiteChrome } from "@/components/auth/SiteChrome";
 import "./globals.scss";
 
 const serif = Instrument_Serif({
@@ -46,10 +46,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <SmoothScroll>
-          <Navbar />
+          <SiteChrome>
+            <Navbar />
+          </SiteChrome>
           <main id="main">{children}</main>
-          <Footer />
-          <DemoDialog />
+          <SiteChrome>
+            <Footer />
+          </SiteChrome>
           <CursorGlow />
         </SmoothScroll>
       </body>

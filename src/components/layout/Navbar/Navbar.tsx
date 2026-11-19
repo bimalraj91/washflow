@@ -114,8 +114,8 @@ export function Navbar() {
           <Link href="/sign-in" className={styles.signin}>
             Sign in
           </Link>
-          <Button href="/#book-demo" data-demo-trigger="" className={styles.cta}>
-            Book a Demo
+          <Button href="/sign-up" className={styles.cta}>
+            Get started
           </Button>
           <button
             ref={toggleRef}
@@ -172,8 +172,8 @@ export function Navbar() {
               <Button href="/sign-in" variant="ghost" size="lg" onClick={close}>
                 Sign in
               </Button>
-              <Button href="/#book-demo" data-demo-trigger="" size="lg" arrow onClick={close}>
-                Book a Demo
+              <Button href="/sign-up" size="lg" arrow onClick={close}>
+                Get started
               </Button>
             </motion.div>
           </motion.div>

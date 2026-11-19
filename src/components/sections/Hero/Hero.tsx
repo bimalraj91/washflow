@@ -47,8 +47,8 @@ export function Hero() {
               <Button href="#platform" size="lg" arrow magnetic>
                 Explore the Platform
               </Button>
-              <Button href="/#book-demo" data-demo-trigger="" variant="ghost" size="lg">
-                Book a Demo
+              <Button href="/sign-up" variant="ghost" size="lg">
+                Get started
               </Button>
             </div>
           </div>

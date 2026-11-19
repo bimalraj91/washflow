@@ -18,8 +18,8 @@ export function FAQ() {
             Everything car wash owners usually ask before switching from notebooks and spreadsheets.
           </p>
           <div data-reveal>
-            <Button href="/#book-demo" data-demo-trigger="" variant="ghost" arrow>
-              Ask us in a demo
+            <Button href="/sign-up" variant="ghost" arrow>
+              Create an account
             </Button>
           </div>
         </div>

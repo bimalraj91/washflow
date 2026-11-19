@@ -1,0 +1,51 @@
+.who {
+  margin-bottom: 1.5rem;
+  padding: 0.7rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-2);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.8125rem;
+  color: var(--text-2);
+  overflow-wrap: anywhere;
+
+  b {
+    color: var(--text);
+    font-weight: 600;
+  }
+}
+
+.next {
+  display: grid;
+  gap: 0.6rem;
+  margin-bottom: 1.75rem;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.9375rem;
+    color: var(--text-2);
+    animation: in 0.8s var(--ease-out) both;
+
+    span {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: var(--volt-dim);
+      color: var(--volt);
+    }
+  }
+}
+
+.cta {
+  width: 100%;
+}
+
+@keyframes in {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+}

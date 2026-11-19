@@ -79,8 +79,7 @@ export function PricingPlans() {
               </ul>
 
               <Button
-                href="/#book-demo"
-                data-demo-trigger=""
+                href="/sign-up"
                 variant={p.featured ? "primary" : "ghost"}
                 size="lg"
                 arrow

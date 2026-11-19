@@ -72,7 +72,7 @@ export function Pricing() {
 
         <p className={styles.fine}>
           Prices in INR, exclusive of GST. Yearly plans are billed annually. Need something custom for a large fleet?
-          Talk to us in a demo.
+          Create an account and we&apos;ll size a plan with you.
         </p>
       </div>
     </section>

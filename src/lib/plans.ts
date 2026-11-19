@@ -65,7 +65,7 @@ export const PLANS: Plan[] = [
       "Dedicated onboarding manager",
       "Priority phone support",
     ],
-    cta: "Talk to us about Pro",
+    cta: "Start with Pro",
   },
 ];
 

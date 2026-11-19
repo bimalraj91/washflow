@@ -1,6 +1,6 @@
 import { buildMetadata } from "@/lib/seo";
-import { LegalPage } from "@/components/layout/LegalPage/LegalPage";
-import { Button } from "@/components/ui/Button/Button";
+import { AuthShell } from "@/components/auth/AuthShell";
+import { SignInForm } from "@/components/auth/SignInForm";
 
 export const metadata = buildMetadata({
   title: "Sign in",
@@ -9,15 +9,28 @@ export const metadata = buildMetadata({
   noindex: true,
 });
 
-export default function SignInPage() {
+export default async function SignInPage({ searchParams }: { searchParams: Promise<{ registered?: string }> }) {
+  const { registered } = await searchParams;
   return (
-    <LegalPage title="Sign in" path="/sign-in">
-      <p>The customer workspace is opening to businesses in stages. Book a demo and we&apos;ll set up your account.</p>
-      <p style={{ marginTop: "2rem" }}>
-        <Button href="/#book-demo" data-demo-trigger="" arrow>
-          Book a demo
-        </Button>
-      </p>
-    </LegalPage>
+    <AuthShell
+      art="signin"
+      eyebrow="Welcome back"
+      title={
+        <>
+          Back on the <em>floor.</em>
+        </>
+      }
+      lead="Sign in to see today's washes, dues and revenue."
+      caption={{
+        title: (
+          <>
+            Every bay, every rupee, <em>in one place.</em>
+          </>
+        ),
+        text: "Your car wash keeps moving while you're away. WashFlow keeps the numbers straight.",
+      }}
+    >
+      <SignInForm registered={registered === "1"} />
+    </AuthShell>
   );
 }
