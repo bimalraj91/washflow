@@ -30,7 +30,20 @@
   }
 }
 
+// Pinned unit: tunnel strip on top, steps + job card below. Sized to fit a
+// laptop viewport while pinned.
+.pinWrap {
+  display: grid;
+  gap: clamp(1rem, 2.6vh, 1.75rem);
+
+  @include up($bp-lg) {
+    min-height: calc(100vh - 120px);
+    align-content: center;
+  }
+}
+
 .flow {
+  --step-pad: clamp(0.45rem, 1.3vh, 0.85rem);
   display: grid;
   gap: 2rem;
   align-items: center;
@@ -38,7 +51,6 @@
   @include up($bp-lg) {
     grid-template-columns: 0.9fr 1.1fr;
     gap: 4rem;
-    min-height: calc(100vh - 120px);
   }
 }
 
@@ -54,7 +66,7 @@
   grid-template-columns: 40px 1fr;
   gap: 1rem;
   width: 100%;
-  padding: 0.85rem 0.75rem;
+  padding: var(--step-pad, 0.85rem) 0.75rem;
   border-radius: var(--radius);
   text-align: left;
   transition: background-color 0.4s var(--ease-out);
@@ -83,7 +95,7 @@ li:not(:last-child) .stepIcon::after {
   top: calc(100% + 1px);
   left: 50%;
   width: 1px;
-  height: calc(0.85rem * 2 + 0.25rem + 4px);
+  height: calc(var(--step-pad, 0.85rem) * 2 + 0.25rem + 4px);
   background: var(--line-2);
 }
 

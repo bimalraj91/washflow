@@ -7,6 +7,8 @@ import { gsap, ScrollTrigger, useGSAP, MQ } from "@/lib/animations/gsap";
 import { StatusChip, type Status } from "@/components/ui/StatusChip/StatusChip";
 import { DemoTag } from "@/components/mockups/Frames";
 import { cx, formatINR } from "@/lib/utils";
+import { useLenis } from "@/lib/animations/lenis";
+import { WashTunnel } from "./WashTunnel";
 import styles from "./WashManagement.module.scss";
 
 const STAGES: Array<{ title: string; note: string; Icon: typeof Car; job: Status; pay: Status; progress: number; log: string }> = [
@@ -22,6 +24,9 @@ export function WashWorkflow() {
   const [stage, setStage] = useState(0);
   const root = useRef<HTMLDivElement>(null);
   const pinned = useRef(false);
+  const tunnel = useRef<HTMLDivElement>(null);
+  const trigger = useRef<ScrollTrigger | null>(null);
+  const lenis = useLenis();
 
   // Desktop: pin and let scroll drive the stage.
   useGSAP(
@@ -35,10 +40,16 @@ export function WashWorkflow() {
           end: () => `+=${window.innerHeight * 2.2}`,
           pin: true,
           scrub: true,
-          onUpdate: (self) => setStage(Math.min(STAGES.length - 1, Math.floor(self.progress * STAGES.length))),
+          onUpdate: (self) => {
+            setStage(Math.min(STAGES.length - 1, Math.floor(self.progress * STAGES.length)));
+            tunnel.current?.style.setProperty("--x", carPosition(self.progress).toFixed(4));
+          },
         });
+        trigger.current = st;
+        tunnel.current?.removeAttribute("data-smooth");
         return () => {
           pinned.current = false;
+          trigger.current = null;
           st.kill();
         };
       });
@@ -64,10 +75,30 @@ export function WashWorkflow() {
     };
   }, []);
 
+  // Without the scroll pin (mobile, tablet, reduced motion) the car glides
+  // from station to station whenever the stage changes.
+  useEffect(() => {
+    const el = tunnel.current;
+    if (!el || pinned.current) return;
+    el.setAttribute("data-smooth", "");
+    el.style.setProperty("--x", String(stage / (STAGES.length - 1)));
+  }, [stage]);
+
+  // Pinned: clicking a step scrolls to its segment, so the car drives there.
+  const goTo = (i: number) => {
+    const st = trigger.current;
+    if (!st) return setStage(i);
+    const y = st.start + ((i + 0.5) / STAGES.length) * (st.end - st.start);
+    if (lenis) lenis.scrollTo(y, { duration: 1.2 });
+    else window.scrollTo({ top: y, behavior: "smooth" });
+  };
+
   const s = STAGES[stage];
 
   return (
-    <div ref={root} className={styles.flow}>
+    <div ref={root} className={styles.pinWrap}>
+      <WashTunnel ref={tunnel} stage={stage} />
+      <div className={styles.flow}>
       <ol className={styles.steps}>
         {STAGES.map((st, i) => (
           <li key={st.title}>
@@ -75,7 +106,7 @@ export function WashWorkflow() {
               type="button"
               className={cx(styles.step, i === stage && styles.stepActive, i < stage && styles.stepDone)}
               aria-current={i === stage ? "step" : undefined}
-              onClick={() => setStage(i)}
+              onClick={() => goTo(i)}
               onPointerEnter={(e) => {
                 // Hover previews the stage on mouse devices; touch uses tap.
                 if (e.pointerType === "mouse") setStage(i);
@@ -157,6 +188,21 @@ export function WashWorkflow() {
           </AnimatePresence>
         </div>
       </div>
+      </div>
     </div>
   );
+}
+
+/**
+ * Scroll progress → car position (0–1). The stage switches at each sixth of
+ * the scroll; the car is centred under a station mid-segment and dwells there
+ * (smoothstep), driving between arches around the switch-over point.
+ */
+function carPosition(p: number) {
+  const n = STAGES.length;
+  const t = Math.min(n - 1, Math.max(0, p * n - 0.5));
+  const i = Math.floor(t);
+  const f = t - i;
+  const e = f < 0.2 ? 0 : f > 0.8 ? 1 : ((f - 0.2) / 0.6) ** 2 * (3 - 2 * ((f - 0.2) / 0.6));
+  return (i + e) / (n - 1);
 }
