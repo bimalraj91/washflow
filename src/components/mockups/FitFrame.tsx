@@ -11,6 +11,10 @@ type Props = {
   minScale?: number;
   /** Degrees of rotateX to settle from as it scrolls in (desktop). */
   tilt?: number;
+  /** Open the frame with a clipped mask reveal on first scroll-in. */
+  mask?: boolean;
+  /** Lean toward the cursor (desktop fine pointer). */
+  pointerTilt?: boolean;
   children: ReactNode;
 };
 
@@ -19,9 +23,10 @@ type Props = {
  * screen at every size. Below `minScale` it keeps that scale and scrolls
  * horizontally instead of becoming unreadable. Optional scroll-in tilt.
  */
-export function FitFrame({ width, minScale = 0.6, tilt = 0, children }: Props) {
+export function FitFrame({ width, minScale = 0.6, tilt = 0, mask, pointerTilt = true, children }: Props) {
   const outer = useRef<HTMLDivElement>(null);
   const inner = useRef<HTMLDivElement>(null);
+  const lean = useRef<HTMLDivElement>(null);
   const [box, setBox] = useState<{ scale: number; h: number; scroll: boolean } | null>(null);
 
   useLayoutEffect(() => {
@@ -61,8 +66,47 @@ export function FitFrame({ width, minScale = 0.6, tilt = 0, children }: Props) {
     { dependencies: [tilt] },
   );
 
+  // Pointer tilt: the screen leans a few degrees toward the cursor and a soft
+  // glare follows it. Runs on the inner wrapper so it composes with the
+  // scroll-linked settle above (which owns the outer element).
+  useGSAP(
+    () => {
+      const el = lean.current;
+      if (!el || !pointerTilt) return;
+      const mm = gsap.matchMedia();
+      mm.add(`${MQ.finePointer} and ${MQ.desktop}`, () => {
+        const rx = gsap.quickTo(el, "rotateX", { duration: 0.9, ease: "power3" });
+        const ry = gsap.quickTo(el, "rotateY", { duration: 0.9, ease: "power3" });
+        gsap.set(el, { transformPerspective: 1400 });
+        const move = (e: PointerEvent) => {
+          const r = el.getBoundingClientRect();
+          const nx = (e.clientX - r.left) / r.width - 0.5;
+          const ny = (e.clientY - r.top) / r.height - 0.5;
+          ry(nx * 5);
+          rx(-ny * 3.5);
+          el.style.setProperty("--mx", `${(nx + 0.5) * 100}%`);
+          el.style.setProperty("--my", `${(ny + 0.5) * 100}%`);
+        };
+        const leave = () => {
+          rx(0);
+          ry(0);
+        };
+        el.addEventListener("pointermove", move);
+        el.addEventListener("pointerleave", leave);
+        return () => {
+          el.removeEventListener("pointermove", move);
+          el.removeEventListener("pointerleave", leave);
+          gsap.set(el, { clearProps: "transform" });
+        };
+      });
+      return () => mm.revert();
+    },
+    { dependencies: [pointerTilt] },
+  );
+
   return (
-    <div className={styles.persp}>
+    <div className={styles.persp} data-mask={mask ? "" : undefined}>
+      <div ref={lean} className={styles.lean}>
       <div
         ref={outer}
         className={styles.outer}
@@ -82,6 +126,7 @@ export function FitFrame({ width, minScale = 0.6, tilt = 0, children }: Props) {
             {children}
           </div>
         </div>
+      </div>
       </div>
       {box?.scroll && (
         <p className={styles.hint} aria-hidden="true">

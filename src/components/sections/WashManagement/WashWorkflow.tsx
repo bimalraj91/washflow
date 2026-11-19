@@ -76,6 +76,11 @@ export function WashWorkflow() {
               className={cx(styles.step, i === stage && styles.stepActive, i < stage && styles.stepDone)}
               aria-current={i === stage ? "step" : undefined}
               onClick={() => setStage(i)}
+              onPointerEnter={(e) => {
+                // Hover previews the stage on mouse devices; touch uses tap.
+                if (e.pointerType === "mouse") setStage(i);
+              }}
+              onFocus={() => setStage(i)}
             >
               <span className={styles.stepIcon} aria-hidden="true">
                 <st.Icon size={16} />

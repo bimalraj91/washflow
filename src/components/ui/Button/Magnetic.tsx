@@ -31,6 +31,7 @@ export function Magnetic({ children, strength = 0.28 }: { children: ReactNode; s
           el.removeEventListener("pointerleave", leave);
         };
       });
+      return () => mm.revert();
     },
     { scope: ref },
   );

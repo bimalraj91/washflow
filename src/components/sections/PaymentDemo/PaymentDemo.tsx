@@ -11,7 +11,7 @@ export function PaymentDemo() {
           <p className={styles.eyebrow} data-reveal="fade">
             <span>10</span> Try it
           </p>
-          <h2 id="payment-title" className={styles.title} data-reveal>
+          <h2 id="payment-title" className={styles.title} data-split>
             Checkout in <em>four taps.</em>
           </h2>
           <p className={styles.intro} data-reveal>

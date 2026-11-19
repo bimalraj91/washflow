@@ -83,6 +83,7 @@
 }
 
 .tHead {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -404,4 +405,34 @@
   border-radius: 50%;
   background: var(--volt);
   color: var(--bg);
+}
+
+// ---------- Payment feedback ----------
+.pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid var(--volt);
+  pointer-events: none;
+}
+
+.stamp {
+  position: absolute;
+  right: 0;
+  top: -0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.7rem;
+  border: 2px solid var(--volt);
+  border-radius: 8px;
+  color: var(--volt);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: rgba(199, 255, 69, 0.08);
+  box-shadow: 0 0 24px -4px var(--volt-glow);
+  pointer-events: none;
 }

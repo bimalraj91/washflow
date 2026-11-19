@@ -3,6 +3,30 @@
   perspective-origin: 50% 0%;
 }
 
+.lean {
+  position: relative;
+  transform-style: flat;
+
+  // Glare that tracks the pointer (set via --mx/--my from FitFrame)
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    border-radius: var(--radius-lg);
+    background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 0%), rgba(255, 255, 255, 0.07), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.5s var(--ease-out);
+  }
+
+  @media (hover: hover) {
+    &:hover::after {
+      opacity: 1;
+    }
+  }
+}
+
 .outer {
   position: relative;
   overflow: hidden;

@@ -25,6 +25,8 @@ export function BenefitsMotion() {
         },
       });
     });
+
+    return () => mm.revert();
   });
 
   return null;

@@ -155,7 +155,7 @@ export function MobileShowcase() {
           <p className={styles.eyebrow} data-reveal="fade">
             <span>09</span> Mobile preview
           </p>
-          <h2 id="mobile-title" className={styles.title} data-reveal>
+          <h2 id="mobile-title" className={styles.title} data-split>
             The floor, <em>in your pocket.</em>
           </h2>
           <p className={styles.intro} data-reveal>

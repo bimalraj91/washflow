@@ -112,6 +112,31 @@
   }
 }
 
+// Idle float: each phone bobs on its own period so the trio never moves in
+// lockstep. Animates the child (not the slot GSAP is posing) and is paused
+// for reduced-motion users.
+.phoneSlot > :first-child {
+  @include motion {
+    animation: float 7s var(--ease-in-out) infinite;
+  }
+}
+
+.phoneSlot[data-phone="left"] > :first-child {
+  animation-duration: 8.5s;
+  animation-delay: -2s;
+}
+
+.phoneSlot[data-phone="right"] > :first-child {
+  animation-duration: 9.5s;
+  animation-delay: -5s;
+}
+
+@keyframes float {
+  50% {
+    transform: translate3d(0, -10px, 0) rotate(0.4deg);
+  }
+}
+
 .caption {
   @include label;
   color: var(--text-3);

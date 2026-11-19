@@ -1,7 +1,7 @@
 "use client";
 
-import { useId, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useId, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Banknote, Check, CreditCard, Landmark, Share2, Smartphone, X } from "lucide-react";
 import { cx, formatINR } from "@/lib/utils";
 import styles from "./PaymentDemo.module.scss";
@@ -28,12 +28,26 @@ export function PaymentTerminal() {
   const [paid, setPaid] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const svcId = useId();
+  const reduce = useReducedMotion();
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(timer.current), []);
+
+  // Tactile feedback on touch devices; ignored where unsupported.
+  const haptic = (ms = 12) => {
+    try {
+      navigator.vibrate?.(ms);
+    } catch {
+      /* not supported */
+    }
+  };
+  const tap = reduce ? undefined : { scale: 0.96 };
 
   const total = service.price + (includeDue ? PREV_DUE : 0);
 
   const notify = (msg: string) => {
     setToast(msg);
-    setTimeout(() => setToast((t) => (t === msg ? null : t)), 2800);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => setToast(null), 2800);
   };
 
   return (
@@ -44,6 +58,21 @@ export function PaymentTerminal() {
           <p className={styles.tName}>Arjun Menon</p>
         </div>
         <span className={styles.tPlate}>KL 07 CK 4821</span>
+        <AnimatePresence>
+          {paid && (
+            <motion.span
+              key="stamp"
+              className={styles.stamp}
+              aria-hidden="true"
+              initial={reduce ? { opacity: 0 } : { scale: 2.4, opacity: 0, rotate: -22 }}
+              animate={{ scale: 1, opacity: 1, rotate: -8 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ type: "spring", stiffness: 380, damping: 20 }}
+            >
+              <Check size={13} strokeWidth={3} /> Paid
+            </motion.span>
+          )}
+        </AnimatePresence>
       </div>
 
       <fieldset className={styles.group}>
@@ -52,11 +81,11 @@ export function PaymentTerminal() {
         </legend>
         <div className={styles.services}>
           {SERVICES.map((s) => (
-            <label key={s.id} className={cx(styles.svc, service.id === s.id && styles.svcOn)}>
+            <motion.label key={s.id} whileTap={tap} className={cx(styles.svc, service.id === s.id && styles.svcOn)}>
               <input type="radio" name="svc" value={s.id} checked={service.id === s.id} onChange={() => { setService(s); setPaid(false); }} />
               <span>{s.name}</span>
               <b className="tabular">{formatINR(s.price)}</b>
-            </label>
+            </motion.label>
           ))}
         </div>
       </fieldset>
@@ -81,7 +110,7 @@ export function PaymentTerminal() {
         <div className={styles.totalRow}>
           <dt>Total amount</dt>
           <dd>
-            <motion.span key={total} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="tabular">
+            <motion.span key={total} initial={reduce ? false : { opacity: 0, y: 10, scale: 1.08 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }} className="tabular" style={{ display: "inline-block", transformOrigin: "right center" }}>
               {formatINR(total)}
             </motion.span>
           </dd>
@@ -92,11 +121,11 @@ export function PaymentTerminal() {
         <legend className={styles.tLabel}>Payment method</legend>
         <div className={styles.methods}>
           {METHODS.map(({ id, Icon }) => (
-            <label key={id} className={cx(styles.method, method === id && styles.methodOn)}>
-              <input type="radio" name="method" value={id} checked={method === id} onChange={() => setMethod(id)} />
+            <motion.label key={id} whileTap={tap} className={cx(styles.method, method === id && styles.methodOn)}>
+              <input type="radio" name="method" value={id} checked={method === id} onChange={() => { setMethod(id); setPaid(false); haptic(8); }} />
               <Icon size={18} aria-hidden="true" />
               <span>{id}</span>
-            </label>
+            </motion.label>
           ))}
         </div>
       </fieldset>
@@ -113,9 +142,25 @@ export function PaymentTerminal() {
           className={cx(styles.switch, paid && styles.switchOn)}
           onClick={() => {
             setPaid((p) => !p);
-            if (!paid) notify(`${formatINR(total)} recorded via ${method}`);
+            if (!paid) {
+              notify(`${formatINR(total)} recorded via ${method}`);
+              haptic(18);
+            }
           }}
         >
+          {/* success pulse radiating from the switch */}
+          <AnimatePresence>
+            {paid && !reduce && (
+              <motion.span
+                key="pulse"
+                className={styles.pulse}
+                initial={{ opacity: 0.7, scale: 1 }}
+                animate={{ opacity: 0, scale: 1.55 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              />
+            )}
+          </AnimatePresence>
           <span className={styles.switchText}>{paid ? "Paid" : "Pending"}</span>
           <motion.span layout className={styles.knob} transition={{ type: "spring", stiffness: 500, damping: 32 }}>
             {paid ? <Check size={12} strokeWidth={3} /> : <X size={12} strokeWidth={3} />}

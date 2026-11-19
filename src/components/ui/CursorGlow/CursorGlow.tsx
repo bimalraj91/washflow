@@ -23,6 +23,7 @@ export function CursorGlow() {
       window.addEventListener("pointermove", move, { passive: true });
       return () => window.removeEventListener("pointermove", move);
     });
+    return () => mm.revert();
   });
 
   return <div ref={ref} className={styles.glow} aria-hidden="true" />;

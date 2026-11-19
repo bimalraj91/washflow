@@ -48,6 +48,8 @@ export function MobileMotion() {
         stage.removeEventListener("pointerleave", leave);
       };
     });
+
+    return () => mm.revert();
   });
 
   return null;

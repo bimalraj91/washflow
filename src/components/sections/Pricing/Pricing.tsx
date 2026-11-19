@@ -12,7 +12,7 @@ export function Pricing() {
             <p className={styles.eyebrow} data-reveal="fade">
               <span>13</span> Subscriptions
             </p>
-            <h2 id="pricing-title" className={styles.title} data-reveal>
+            <h2 id="pricing-title" className={styles.title} data-split>
               Pick your <em>lane.</em>
             </h2>
           </div>

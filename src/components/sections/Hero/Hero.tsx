@@ -27,7 +27,7 @@ export function Hero() {
           <p className={styles.code}>WF—01 / OPERATIONS CONSOLE</p>
         </div>
 
-        <h1 id="hero-title" className={styles.title}>
+        <h1 id="hero-title" className={styles.title} data-hero-fade>
           {LINES.map((line, i) => (
             <span key={i} className={styles.line}>
               <span className={styles.lineInner} style={{ animationDelay: `${0.1 + i * 0.14}s` }}>
@@ -38,7 +38,7 @@ export function Hero() {
         </h1>
 
         <div className={styles.bottom}>
-          <div className={styles.copy}>
+          <div className={styles.copy} data-hero-fade>
             <p className={styles.lead}>
               One powerful platform to manage washes, payments, customers, employees, expenses and every operation of
               your car wash business.

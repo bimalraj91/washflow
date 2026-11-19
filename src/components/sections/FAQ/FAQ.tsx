@@ -11,7 +11,7 @@ export function FAQ() {
           <p className={styles.eyebrow} data-reveal="fade">
             <span>14</span> FAQ
           </p>
-          <h2 id="faq-title" className={styles.title} data-reveal>
+          <h2 id="faq-title" className={styles.title} data-split>
             Questions, <em>answered.</em>
           </h2>
           <p className={styles.intro} data-reveal>

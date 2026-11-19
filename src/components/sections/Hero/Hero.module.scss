@@ -26,6 +26,12 @@
     radial-gradient(60% 40% at 68% 0%, rgba(255, 255, 255, 0.07), transparent 70%),
     radial-gradient(55% 30% at 70% 88%, rgba(199, 255, 69, 0.1), transparent 70%),
     linear-gradient(180deg, #090b0b 0%, #0b0e0d 62%, #070909 62.2%, var(--bg) 100%);
+  transform-origin: 70% 62%;
+
+  @include motion {
+    // Camera push: the whole studio settles from slightly zoomed + dark
+    animation: stagePush 3s var(--ease-out) both;
+  }
 }
 
 // Overhead softbox: a wide, soft rectangle of light — no hard cone
@@ -223,11 +229,18 @@
 
 .carWrap {
   will-change: transform;
+
+  @include motion {
+    // Dolly in from the right (uses `translate` so GSAP keeps `transform`)
+    animation: dolly 2.4s 0.2s var(--ease-out) both;
+  }
 }
 
 .carMask {
   position: relative;
-  animation: maskReveal 1.6s 0.25s var(--ease-in-out) both;
+  animation:
+    maskReveal 1.8s 0.25s var(--ease-in-out) both,
+    focusPull 2s 0.25s var(--ease-out) both;
 }
 
 .car {
@@ -504,6 +517,28 @@
 }
 
 // ---------- Keyframes ----------
+@keyframes stagePush {
+  from {
+    transform: scale(1.12);
+    opacity: 0;
+  }
+}
+
+@keyframes dolly {
+  from {
+    translate: 7% 0;
+  }
+}
+
+@keyframes focusPull {
+  from {
+    filter: blur(10px) brightness(0.5);
+  }
+  to {
+    filter: blur(0) brightness(1);
+  }
+}
+
 @keyframes lineUp {
   from {
     transform: translate3d(0, 105%, 0);

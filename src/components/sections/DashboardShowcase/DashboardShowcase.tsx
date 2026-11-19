@@ -33,7 +33,7 @@ export function DashboardShowcase() {
           }
         />
 
-        <FitFrame width={1182} minScale={0.62} tilt={16}>
+        <FitFrame width={1182} minScale={0.62} tilt={16} mask>
           <BrowserFrame>
             <Dashboard />
           </BrowserFrame>

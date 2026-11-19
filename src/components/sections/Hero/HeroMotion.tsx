@@ -24,6 +24,26 @@ export function HeroMotion() {
         });
       }
 
+      // Scroll-out: copy lifts away and softens while the car stays the subject.
+      gsap.utils.toArray<HTMLElement>("[data-hero-fade]", hero).forEach((el, i) => {
+        gsap.to(el, {
+          yPercent: -10 - i * 6,
+          opacity: 0.15,
+          ease: "none",
+          scrollTrigger: { trigger: hero, start: "12% top", end: "75% top", scrub: true },
+        });
+      });
+
+      // Widgets drift upward at different speeds as the hero leaves.
+      gsap.utils.toArray<HTMLElement>("[data-depth]", hero).forEach((el) => {
+        const d = parseFloat(el.dataset.depth || "0.5");
+        gsap.to(el, {
+          yPercent: -30 * d,
+          ease: "none",
+          scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true },
+        });
+      });
+
       const layers = gsap.utils.toArray<HTMLElement>("[data-depth]", hero).map((el) => ({
         depth: parseFloat(el.dataset.depth || "0.5"),
         x: gsap.quickTo(el, "x", { duration: 1.2, ease: "power3" }),
@@ -41,6 +61,8 @@ export function HeroMotion() {
       hero.addEventListener("pointermove", move);
       return () => hero.removeEventListener("pointermove", move);
     });
+
+    return () => mm.revert();
   });
 
   return null;

@@ -114,7 +114,7 @@ export function Navbar() {
           <Link href="/sign-in" className={styles.signin}>
             Sign in
           </Link>
-          <Button href="/sign-up" className={styles.cta}>
+          <Button href="/sign-up" className={styles.cta} magnetic>
             Get started
           </Button>
           <button

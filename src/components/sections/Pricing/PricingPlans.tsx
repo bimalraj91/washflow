@@ -83,6 +83,7 @@ export function PricingPlans() {
                 variant={p.featured ? "primary" : "ghost"}
                 size="lg"
                 arrow
+                magnetic={p.featured}
                 className={styles.planCta}
               >
                 {p.cta}

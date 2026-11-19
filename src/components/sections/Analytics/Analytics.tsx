@@ -27,7 +27,7 @@ export function Analytics() {
             <p className={styles.eyebrow} data-reveal="fade">
               <span>08</span> Reports & analytics
             </p>
-            <h2 id="insights-title" className={styles.title} data-reveal>
+            <h2 id="insights-title" className={styles.title} data-split>
               Decisions, <em>not</em> guesswork.
             </h2>
           </div>
@@ -56,7 +56,7 @@ export function Analytics() {
         </div>
 
         <div className={styles.body}>
-          <div className={styles.chartCard} data-reveal>
+          <div className={styles.chartCard} data-mask>
             <div className={styles.cTop}>
               <div>
                 <p className={styles.cLabel}>Net income · 6 months</p>

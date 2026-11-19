@@ -221,3 +221,21 @@ html.lenis body {
     scroll-behavior: auto !important;
   }
 }
+
+// Route transition (see app/template.tsx)
+.page-in {
+  animation: pageIn 0.8s var(--ease-out) backwards;
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+}
+
+// Perf: only promote layers that actually animate
+[data-reveal],
+[data-reveal-stagger] > * {
+  backface-visibility: hidden;
+}

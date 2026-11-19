@@ -23,7 +23,7 @@ export function SectionHeading({ index, eyebrow, title, intro, align = "start", 
           <span className={styles.rule} aria-hidden="true" />
           {eyebrow}
         </p>
-        <Tag id={id} className={styles.title} data-reveal>
+        <Tag id={id} className={styles.title} data-split>
           {title}
         </Tag>
       </div>
